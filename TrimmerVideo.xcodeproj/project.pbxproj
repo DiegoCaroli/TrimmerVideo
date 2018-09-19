@@ -12,6 +12,8 @@
 		F1E3B1CC21523C7F00A6943C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1CA21523C7F00A6943C /* Main.storyboard */; };
 		F1E3B1CE21523C7F00A6943C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1CD21523C7F00A6943C /* Assets.xcassets */; };
 		F1E3B1D121523C7F00A6943C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1CF21523C7F00A6943C /* LaunchScreen.storyboard */; };
+		F1E3B1D921523C9A00A6943C /* IMG_0065.m4v in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1D821523C9800A6943C /* IMG_0065.m4v */; };
+		F1E3B1DB21523D3A00A6943C /* DimmingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1DA21523D3A00A6943C /* DimmingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		F1E3B1CD21523C7F00A6943C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F1E3B1D021523C7F00A6943C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F1E3B1D221523C7F00A6943C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F1E3B1D821523C9800A6943C /* IMG_0065.m4v */ = {isa = PBXFileReference; lastKnownFileType = file; path = IMG_0065.m4v; sourceTree = "<group>"; };
+		F1E3B1DA21523D3A00A6943C /* DimmingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DimmingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,8 @@
 			children = (
 				F1E3B1C621523C7F00A6943C /* AppDelegate.swift */,
 				F1E3B1C821523C7F00A6943C /* ViewController.swift */,
+				F1E3B1D821523C9800A6943C /* IMG_0065.m4v */,
+				F1E3B1DA21523D3A00A6943C /* DimmingView.swift */,
 				F1E3B1CA21523C7F00A6943C /* Main.storyboard */,
 				F1E3B1CD21523C7F00A6943C /* Assets.xcassets */,
 				F1E3B1CF21523C7F00A6943C /* LaunchScreen.storyboard */,
@@ -122,6 +128,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E3B1D921523C9A00A6943C /* IMG_0065.m4v in Resources */,
 				F1E3B1D121523C7F00A6943C /* LaunchScreen.storyboard in Resources */,
 				F1E3B1CE21523C7F00A6943C /* Assets.xcassets in Resources */,
 				F1E3B1CC21523C7F00A6943C /* Main.storyboard in Resources */,
@@ -136,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */,
+				F1E3B1DB21523D3A00A6943C /* DimmingView.swift in Sources */,
 				F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
