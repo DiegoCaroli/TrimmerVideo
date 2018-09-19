@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F1C95C5E21528B3B00CC797A /* TrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C95C5D21528B3B00CC797A /* TrimmerView.swift */; };
 		F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C621523C7F00A6943C /* AppDelegate.swift */; };
 		F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C821523C7F00A6943C /* ViewController.swift */; };
 		F1E3B1CC21523C7F00A6943C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1CA21523C7F00A6943C /* Main.storyboard */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F1C95C5D21528B3B00CC797A /* TrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerView.swift; sourceTree = "<group>"; };
 		F1E3B1C321523C7F00A6943C /* TrimmerVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrimmerVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E3B1C621523C7F00A6943C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1E3B1C821523C7F00A6943C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -61,6 +63,7 @@
 				F1E3B1C621523C7F00A6943C /* AppDelegate.swift */,
 				F1E3B1C821523C7F00A6943C /* ViewController.swift */,
 				F1E3B1D821523C9800A6943C /* IMG_0065.m4v */,
+				F1C95C5D21528B3B00CC797A /* TrimmerView.swift */,
 				F1E3B1DA21523D3A00A6943C /* DimmingView.swift */,
 				F1E3B1CA21523C7F00A6943C /* Main.storyboard */,
 				F1E3B1CD21523C7F00A6943C /* Assets.xcassets */,
@@ -145,6 +148,7 @@
 				F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */,
 				F1E3B1DB21523D3A00A6943C /* DimmingView.swift in Sources */,
 				F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */,
+				F1C95C5E21528B3B00CC797A /* TrimmerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

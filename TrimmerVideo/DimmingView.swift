@@ -17,7 +17,7 @@ class DimmingView: UIView {
   //        return imageView
   //    }()
   
-  private let stackView: UIStackView = {
+  let stackView: UIStackView = {
     let stackView = UIStackView()
     stackView.axis = .horizontal
     stackView.distribution = .fillEqually
@@ -79,9 +79,17 @@ class DimmingView: UIView {
   
   //    private var imagesFrame = [UIImageView]()
   
+  override init(frame: CGRect) {
+    super.init(frame: frame)
+    setup()
+  }
+  
+  required init?(coder aDecoder: NSCoder) {
+    super.init(coder: aDecoder)
+  }
+  
   override func awakeFromNib() {
     super.awakeFromNib()
-    
     setup()
   }
   

@@ -17,18 +17,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA9-LC-KSe" customClass="DimmingView" customModule="TrimmerVideo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dA9-LC-KSe" customClass="TrimmerView" customModule="TrimmerVideo" customModuleProvider="target">
                                 <rect key="frame" x="20" y="497" width="335" height="70"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="70" id="uo5-h9-xaV"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maf-po-lGE" customClass="DimmingView" customModule="TrimmerVideo" customModuleProvider="target">
+                                <rect key="frame" x="20" y="377" width="335" height="70"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="70" id="6Yn-29-XY9"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dA9-LC-KSe" secondAttribute="trailing" constant="20" id="aAm-0b-vaz"/>
+                            <constraint firstItem="Maf-po-lGE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3SA-lB-LIR"/>
+                            <constraint firstItem="dA9-LC-KSe" firstAttribute="top" secondItem="Maf-po-lGE" secondAttribute="bottom" constant="50" id="FaY-Ym-3OY"/>
                             <constraint firstItem="dA9-LC-KSe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="f25-4N-nQT"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Maf-po-lGE" secondAttribute="trailing" constant="20" id="fC6-fd-gDo"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dA9-LC-KSe" secondAttribute="trailing" constant="20" id="iYQ-NQ-e7V"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="dA9-LC-KSe" secondAttribute="bottom" constant="100" id="jv5-yG-O2h"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
