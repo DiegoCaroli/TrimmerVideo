@@ -29,7 +29,7 @@ class ViewController: UIViewController {
   override func viewDidAppear(_ animated: Bool) {
     super.viewDidAppear(animated)
     
-    dimmingView.dimmingView.asset = asset
+    dimmingView.assetThumbnailsView.asset = asset
   }
   
   
