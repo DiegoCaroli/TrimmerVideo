@@ -18,9 +18,9 @@ class TrimmerView: UIView {
     }
   }
   
- let borderWidth: CGFloat = 2
-  
   @IBInspectable var minDuration: Int = 0
+  
+  private let borderWidth: CGFloat = 2
   
   private let trimView: UIView = {
     let view = UIView()
@@ -75,6 +75,7 @@ class TrimmerView: UIView {
     let view = UIView()
     view.frame = .zero
     view.backgroundColor = .white
+    view.translatesAutoresizingMaskIntoConstraints = false
     view.isUserInteractionEnabled = false
     return view
   }()
@@ -136,11 +137,11 @@ class TrimmerView: UIView {
     .constraint(equalTo: trimView.topAnchor, constant: 0)
   private lazy var leftMaskViewBottomAnchor = leftMaskView.bottomAnchor
     .constraint(equalTo: trimView.bottomAnchor, constant: 0)
-    private lazy var leftMaskViewLeadingAnchor = leftMaskView.leadingAnchor
-      .constraint(equalTo: leadingAnchor, constant: 0)
-    private lazy var leftMaskViewTrailingAnchor = leftMaskView.trailingAnchor
-      .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
-
+  private lazy var leftMaskViewLeadingAnchor = leftMaskView.leadingAnchor
+    .constraint(equalTo: leadingAnchor, constant: 0)
+  private lazy var leftMaskViewTrailingAnchor = leftMaskView.trailingAnchor
+    .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
+  
   private lazy var rightMaskViewTopAnchor = rightMaskView.topAnchor
     .constraint(equalTo: topAnchor, constant: 0)
   private lazy var rightMaskViewBottomAnchor = rightMaskView.bottomAnchor
@@ -149,6 +150,15 @@ class TrimmerView: UIView {
     .constraint(equalTo: trailingAnchor, constant: 0)
   private lazy var rightMaskViewLeadingAnchor = rightMaskView.leadingAnchor
     .constraint(equalTo: rightDraggableView.trailingAnchor, constant: 0)
+  
+  private lazy var timePointerViewWidthgAnchor = timePointerView.widthAnchor
+    .constraint(equalToConstant: timePointerViewWidth)
+  private lazy var timePointerViewHeightAnchor = timePointerView.heightAnchor
+    .constraint(equalToConstant: bounds.height - timePointerViewWidth * 2)
+  private lazy var timePointerViewTopAnchor = timePointerView.topAnchor
+    .constraint(equalTo: topAnchor, constant: borderWidth)
+  private lazy var timePointerViewLeadingAnchor = timePointerView.leadingAnchor
+    .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -184,17 +194,18 @@ class TrimmerView: UIView {
       rightMaskViewTopAnchor,
       rightMaskViewBottomAnchor,
       rightMaskViewLeadingAnchor,
-      rightMaskViewTrailingAnchor
+      rightMaskViewTrailingAnchor,
+      
+      timePointerViewHeightAnchor,
+      timePointerViewWidthgAnchor,
+      timePointerViewTopAnchor,
+      timePointerViewLeadingAnchor
       ])
   }
   
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    timePointerView.frame = CGRect(x: leftDraggableView.bounds.maxX,
-                                  y: borderWidth,
-                                  width: timePointerViewWidth,
-                                  height: bounds.height - borderWidth * 2)
   }
   
   private func setup() {
