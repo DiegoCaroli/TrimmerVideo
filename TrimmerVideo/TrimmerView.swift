@@ -19,6 +19,7 @@ class TrimmerView: UIView {
   }
   
   @IBInspectable var minDuration: Int = 0
+  @IBInspectable var isTimePointerVisible: Bool = true
   
   private let borderWidth: CGFloat = 2
   
@@ -195,11 +196,6 @@ class TrimmerView: UIView {
       rightMaskViewBottomAnchor,
       rightMaskViewLeadingAnchor,
       rightMaskViewTrailingAnchor,
-      
-      timePointerViewHeightAnchor,
-      timePointerViewWidthgAnchor,
-      timePointerViewTopAnchor,
-      timePointerViewLeadingAnchor
       ])
   }
   
@@ -219,9 +215,30 @@ class TrimmerView: UIView {
     addSubview(leftMaskView)
     addSubview(rightMaskView)
     
-    addSubview(timePointerView)
-    
+    setupTimePointer()
     setupPanGestures()
+  }
+  
+  private func setupTimePointer() {
+    if isTimePointerVisible {
+      addSubview(timePointerView)
+      
+      NSLayoutConstraint.activate([
+        timePointerViewHeightAnchor,
+        timePointerViewWidthgAnchor,
+        timePointerViewTopAnchor,
+        timePointerViewLeadingAnchor
+        ])
+    } else {
+      timePointerView.removeFromSuperview()
+      
+      NSLayoutConstraint.deactivate([
+        timePointerViewHeightAnchor,
+        timePointerViewWidthgAnchor,
+        timePointerViewTopAnchor,
+        timePointerViewLeadingAnchor
+        ])
+    }
   }
   
   private func setupPanGestures() {
