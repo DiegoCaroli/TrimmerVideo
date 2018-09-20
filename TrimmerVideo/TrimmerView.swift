@@ -18,6 +18,8 @@ class TrimmerView: UIView {
     }
   }
   
+ let borderWidth: CGFloat = 2
+  
   @IBInspectable var minDuration: Int = 0
   
   private let trimView: UIView = {
@@ -69,7 +71,16 @@ class TrimmerView: UIView {
     return view
   }()
   
+  private let timePointerView: UIView = {
+    let view = UIView()
+    view.frame = .zero
+    view.backgroundColor = .white
+    view.isUserInteractionEnabled = false
+    return view
+  }()
+  
   private let draggableViewWidth: CGFloat = 20
+  private let timePointerViewWidth: CGFloat = 2
   
   var assetThumbnailsView: DimmingView = {
     let assetView = DimmingView()
@@ -78,10 +89,8 @@ class TrimmerView: UIView {
     return assetView
   }()
   
-  private(set) var currentLeadingConstraint: CGFloat = 0
-  private(set) var currentTrailingConstraint: CGFloat = 0
-  
-  private(set) var leadingConstraintView: NSLayoutConstraint?
+  private(set) lazy var currentLeadingConstraint: CGFloat = 0
+  private(set) lazy var currentTrailingConstraint: CGFloat = 0
   
   private var minimumDistanceBetweenDraggableViews: CGFloat {
     return CGFloat(minDuration) * (assetThumbnailsView.frame.width / CGFloat(assetThumbnailsView.asset.duration.seconds))
@@ -182,6 +191,10 @@ class TrimmerView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     
+    timePointerView.frame = CGRect(x: leftDraggableView.bounds.maxX,
+                                  y: borderWidth,
+                                  width: timePointerViewWidth,
+                                  height: bounds.height - borderWidth * 2)
   }
   
   private func setup() {
@@ -194,6 +207,8 @@ class TrimmerView: UIView {
     addSubview(rightDraggableView)
     addSubview(leftMaskView)
     addSubview(rightMaskView)
+    
+    addSubview(timePointerView)
     
     setupPanGestures()
   }
