@@ -72,7 +72,6 @@ class TrimmerView: UIView {
   var dimmingView: DimmingView = {
     let dimmingView = DimmingView()
     dimmingView.translatesAutoresizingMaskIntoConstraints = false
-    dimmingView.backgroundColor = UIColor.green
     dimmingView.isUserInteractionEnabled = true
     return dimmingView
   }()
@@ -105,13 +104,13 @@ class TrimmerView: UIView {
     .constraint(equalTo: trailingAnchor, constant: 0)
   
   private lazy var leftDraggableViewLeadingAnchor = leftDraggableView.leadingAnchor
-    .constraint(equalTo: leadingAnchor, constant: 0)
+    .constraint(equalTo: trimView.leadingAnchor, constant: 0)
   private lazy var leftDraggableViewWidthAnchor = leftDraggableView.widthAnchor
     .constraint(equalToConstant: draggableViewWidth)
   private lazy var leftDraggableViewTopAnchor = leftDraggableView.topAnchor
-    .constraint(equalTo: topAnchor, constant: 0)
+    .constraint(equalTo: trimView.topAnchor, constant: 0)
   private lazy var leftDraggableViewBottomAnchor = leftDraggableView.bottomAnchor
-    .constraint(equalTo: bottomAnchor, constant: 0)
+    .constraint(equalTo: trimView.bottomAnchor, constant: 0)
   
   private lazy var rightDraggableViewTopAnchor = rightDraggableView.topAnchor
     .constraint(equalTo: trimView.topAnchor, constant: 0)
@@ -121,6 +120,24 @@ class TrimmerView: UIView {
     .constraint(equalTo: trimView.trailingAnchor, constant: 0)
   private lazy var rightDraggableViewWidthAnchor = rightDraggableView.widthAnchor
     .constraint(equalToConstant: draggableViewWidth)
+  
+  private lazy var leftMaskViewTopAnchor = leftMaskView.topAnchor
+    .constraint(equalTo: trimView.topAnchor, constant: 0)
+  private lazy var leftMaskViewBottomAnchor = leftMaskView.bottomAnchor
+    .constraint(equalTo: trimView.bottomAnchor, constant: 0)
+    private lazy var leftMaskViewLeadingAnchor = leftMaskView.leadingAnchor
+      .constraint(equalTo: leadingAnchor, constant: 0)
+    private lazy var leftMaskViewTrailingAnchor = leftMaskView.trailingAnchor
+      .constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0)
+
+  private lazy var rightMaskViewTopAnchor = rightMaskView.topAnchor
+    .constraint(equalTo: topAnchor, constant: 0)
+  private lazy var rightMaskViewBottomAnchor = rightMaskView.bottomAnchor
+    .constraint(equalTo: bottomAnchor, constant: 0)
+  private lazy var rightMaskViewTrailingAnchor = rightMaskView.trailingAnchor
+    .constraint(equalTo: trailingAnchor, constant: 0)
+  private lazy var rightMaskViewLeadingAnchor = rightMaskView.leadingAnchor
+    .constraint(equalTo: rightDraggableView.trailingAnchor, constant: 0)
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -137,7 +154,7 @@ class TrimmerView: UIView {
       trimViewBottomAnchorConstraint,
       trimViewLeadingConstraint,
       trimViewTrailingConstraint,
-
+      
       leftDraggableViewLeadingAnchor,
       leftDraggableViewWidthAnchor,
       leftDraggableViewTopAnchor,
@@ -146,7 +163,17 @@ class TrimmerView: UIView {
       rightDraggableViewTopAnchor,
       rightDraggableViewBottomAnchor,
       rightDraggableViewTrailingAnchor,
-      rightDraggableViewWidthAnchor
+      rightDraggableViewWidthAnchor,
+      
+      leftMaskViewTopAnchor,
+      leftMaskViewBottomAnchor,
+      leftMaskViewLeadingAnchor,
+      leftMaskViewTrailingAnchor,
+      
+      rightMaskViewTopAnchor,
+      rightMaskViewBottomAnchor,
+      rightMaskViewLeadingAnchor,
+      rightMaskViewTrailingAnchor
       ])
   }
   
@@ -159,19 +186,17 @@ class TrimmerView: UIView {
   override func layoutSubviews() {
     super.layoutSubviews()
     
-
+    
   }
   
   private func setup() {
     addSubview(dimmingView)
     addSubview(trimView)
-
+    
     addSubview(leftDraggableView)
     addSubview(rightDraggableView)
-    //    trimView.addSubview(leftDraggableView)
-    //    trimView.addSubview(rightDraggableView)
-    //    trimView.addSubview(leftMaskView)
-    //    trimView.addSubview(rightMaskView)
+    addSubview(leftMaskView)
+    addSubview(rightMaskView)
     
     setupPanGestures()
   }
@@ -207,15 +232,15 @@ class TrimmerView: UIView {
       UIView.animate(withDuration: 0.1) {
         self.layoutIfNeeded()
       }
-//      if let startTime = startTime, isLeftGesture {
-//        seek(to: startTime)
-//      } else if let endTime = endTime {
-//        seek(to: endTime)
-//      }
-//      updateSelectedTime(stoppedMoving: false)
+      //      if let startTime = startTime, isLeftGesture {
+      //        seek(to: startTime)
+      //      } else if let endTime = endTime {
+      //        seek(to: endTime)
+      //      }
+      //      updateSelectedTime(stoppedMoving: false)
       
-//    case .cancelled, .ended, .failed:
-//      updateSelectedTime(stoppedMoving: true)
+      //    case .cancelled, .ended, .failed:
+    //      updateSelectedTime(stoppedMoving: true)
     default: break
     }
   }
@@ -223,7 +248,7 @@ class TrimmerView: UIView {
   private func updateLeadingConstraint(with translation: CGPoint) {
     let maxConstraint = max(0, rightDraggableView.frame.origin.x - draggableViewWidth)
     let newPosition = min(max(0, currentLeadingConstraint + translation.x), maxConstraint)
-
+    
     trimViewLeadingConstraint.constant = newPosition
   }
   
