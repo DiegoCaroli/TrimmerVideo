@@ -24,6 +24,8 @@ class TrimmerView: UIView {
     view.backgroundColor = .clear
     view.layer.borderWidth = 2
     view.layer.borderColor = UIColor.orange.cgColor
+    view.translatesAutoresizingMaskIntoConstraints = false
+    view.isUserInteractionEnabled = true
     return view
   }()
   
@@ -32,6 +34,7 @@ class TrimmerView: UIView {
     view.frame = .zero
     view.backgroundColor = .orange
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.isUserInteractionEnabled = true
     return view
   }()
   
@@ -40,6 +43,7 @@ class TrimmerView: UIView {
     view.frame = .zero
     view.backgroundColor = .orange
     view.translatesAutoresizingMaskIntoConstraints = false
+    view.isUserInteractionEnabled = true
     return view
   }()
   
@@ -65,58 +69,109 @@ class TrimmerView: UIView {
   
   private let draggableViewWidth: CGFloat = 20
   
-  let dimmingView = DimmingView()
-  private(set) var leadingConstraint: NSLayoutConstraint?
-  private(set) var trailingConstraint: NSLayoutConstraint?
+  var dimmingView: DimmingView = {
+    let dimmingView = DimmingView()
+    dimmingView.translatesAutoresizingMaskIntoConstraints = false
+    dimmingView.backgroundColor = UIColor.green
+    dimmingView.isUserInteractionEnabled = true
+    return dimmingView
+  }()
+  
   private(set) var currentLeadingConstraint: CGFloat = 0
   private(set) var currentTrailingConstraint: CGFloat = 0
+  
+  private(set) var leadingConstraintView: NSLayoutConstraint?
   
   private var minimumDistanceBetweenDraggableViews: CGFloat {
     return CGFloat(1) * (dimmingView.frame.width / CGFloat(dimmingView.asset.duration.seconds))
   }
   
+  private lazy var dimmingViewTopAnchor = dimmingView.topAnchor
+    .constraint(equalTo: topAnchor, constant: 0)
+  private lazy var dimmingViewBottomAnchor = dimmingView.bottomAnchor
+    .constraint(equalTo: bottomAnchor, constant: 0)
+  private lazy var dimmingViewLeadingAnchor = dimmingView.leadingAnchor
+    .constraint(equalTo: leadingAnchor, constant: draggableViewWidth)
+  private lazy var dimmingViewTrailingAnchor = dimmingView.trailingAnchor
+    .constraint(equalTo: trailingAnchor, constant: -draggableViewWidth)
+  
+  private lazy var trimViewTopAnchorConstraint = trimView.topAnchor
+    .constraint(equalTo: topAnchor, constant: 0)
+  private lazy var trimViewBottomAnchorConstraint = trimView.bottomAnchor
+    .constraint(equalTo: bottomAnchor, constant: 0)
+  private lazy var trimViewLeadingConstraint = trimView.leadingAnchor
+    .constraint(equalTo: leadingAnchor, constant: 0)
+  private lazy var trimViewTrailingConstraint = trimView.trailingAnchor
+    .constraint(equalTo: trailingAnchor, constant: 0)
+  
+  private lazy var leftDraggableViewLeadingAnchor = leftDraggableView.leadingAnchor
+    .constraint(equalTo: leadingAnchor, constant: 0)
+  private lazy var leftDraggableViewWidthAnchor = leftDraggableView.widthAnchor
+    .constraint(equalToConstant: draggableViewWidth)
+  private lazy var leftDraggableViewTopAnchor = leftDraggableView.topAnchor
+    .constraint(equalTo: topAnchor, constant: 0)
+  private lazy var leftDraggableViewBottomAnchor = leftDraggableView.bottomAnchor
+    .constraint(equalTo: bottomAnchor, constant: 0)
+  
+  private lazy var rightDraggableViewTopAnchor = rightDraggableView.topAnchor
+    .constraint(equalTo: trimView.topAnchor, constant: 0)
+  private lazy var rightDraggableViewBottomAnchor = rightDraggableView.bottomAnchor
+    .constraint(equalTo: trimView.bottomAnchor, constant: 0)
+  private lazy var rightDraggableViewTrailingAnchor = rightDraggableView.trailingAnchor
+    .constraint(equalTo: trimView.trailingAnchor, constant: 0)
+  private lazy var rightDraggableViewWidthAnchor = rightDraggableView.widthAnchor
+    .constraint(equalToConstant: draggableViewWidth)
+  
   override func awakeFromNib() {
     super.awakeFromNib()
     
     setup()
+    
+    NSLayoutConstraint.activate([
+      dimmingViewTopAnchor,
+      dimmingViewBottomAnchor,
+      dimmingViewLeadingAnchor,
+      dimmingViewTrailingAnchor,
+      
+      trimViewTopAnchorConstraint,
+      trimViewBottomAnchorConstraint,
+      trimViewLeadingConstraint,
+      trimViewTrailingConstraint,
+
+      leftDraggableViewLeadingAnchor,
+      leftDraggableViewWidthAnchor,
+      leftDraggableViewTopAnchor,
+      leftDraggableViewBottomAnchor,
+      
+      rightDraggableViewTopAnchor,
+      rightDraggableViewBottomAnchor,
+      rightDraggableViewTrailingAnchor,
+      rightDraggableViewWidthAnchor
+      ])
+  }
+  
+  override func updateConstraints() {
+    super.updateConstraints()
+    
+    
   }
   
   override func layoutSubviews() {
     super.layoutSubviews()
     
-    dimmingView.frame = bounds
-    trimView.frame = dimmingView.bounds
-    
-    leadingConstraint = leftDraggableView.leadingAnchor.constraint(equalTo: trimView.leadingAnchor, constant: 0)
-    trailingConstraint = rightDraggableView.trailingAnchor.constraint(equalTo: trimView.trailingAnchor, constant: 0)
-    
-    NSLayoutConstraint.activate([
-      leadingConstraint!,
-      leftDraggableView.topAnchor.constraint(equalTo: trimView.topAnchor, constant: 0),
-      leftDraggableView.bottomAnchor.constraint(equalTo: trimView.bottomAnchor, constant: 0),
-      leftDraggableView.widthAnchor.constraint(equalToConstant: draggableViewWidth),
-      rightDraggableView.topAnchor.constraint(equalTo: trimView.topAnchor, constant: 0),
-      rightDraggableView.bottomAnchor.constraint(equalTo: trimView.bottomAnchor, constant: 0),
-      rightDraggableView.widthAnchor.constraint(equalToConstant: draggableViewWidth),
-      trailingConstraint!,
-      leftMaskView.topAnchor.constraint(equalTo: trimView.topAnchor, constant: 0),
-      leftMaskView.bottomAnchor.constraint(equalTo: trimView.bottomAnchor, constant: 0),
-      leftMaskView.leadingAnchor.constraint(equalTo: trimView.leadingAnchor, constant: 0),
-      leftMaskView.trailingAnchor.constraint(equalTo: leftDraggableView.leadingAnchor, constant: 0),
-      rightMaskView.topAnchor.constraint(equalTo: trimView.topAnchor, constant: 0),
-      rightMaskView.bottomAnchor.constraint(equalTo: trimView.bottomAnchor, constant: 0),
-      rightMaskView.leadingAnchor.constraint(equalTo: rightDraggableView.trailingAnchor, constant: 0),
-      rightMaskView.trailingAnchor.constraint(equalTo: trimView.trailingAnchor, constant: 0)
-      ])
+
   }
   
   private func setup() {
     addSubview(dimmingView)
     addSubview(trimView)
-    trimView.addSubview(leftDraggableView)
-    trimView.addSubview(rightDraggableView)
-    trimView.addSubview(leftMaskView)
-    trimView.addSubview(rightMaskView)
+
+    addSubview(leftDraggableView)
+    addSubview(rightDraggableView)
+    //    trimView.addSubview(leftDraggableView)
+    //    trimView.addSubview(rightDraggableView)
+    //    trimView.addSubview(leftMaskView)
+    //    trimView.addSubview(rightMaskView)
     
     setupPanGestures()
   }
@@ -128,8 +183,6 @@ class TrimmerView: UIView {
     rightDraggableView.addGestureRecognizer(rightPanGesture)
   }
   
-  
-  //fix me
   @objc func handlePan(_ sender: UIPanGestureRecognizer) {
     guard let view = sender.view else { return }
     
@@ -138,17 +191,9 @@ class TrimmerView: UIView {
       
     case .began:
       if isLeftGesture {
-        guard let leadingConstraint = leadingConstraint else {
-          assertionFailure("leading constraint must be setup")
-          return
-        }
-        currentLeadingConstraint = leadingConstraint.constant
+        currentLeadingConstraint = trimViewLeadingConstraint.constant
       } else {
-        guard let trailingConstraint = trailingConstraint else {
-          assertionFailure("trailing constraint must be setup")
-          return
-        }
-        currentTrailingConstraint = trailingConstraint.constant
+        currentTrailingConstraint = trimViewTrailingConstraint.constant
       }
     //      updateSelectedTime(stoppedMoving: false)
     case .changed:
@@ -176,25 +221,17 @@ class TrimmerView: UIView {
   }
   
   private func updateLeadingConstraint(with translation: CGPoint) {
-    let maxConstraint = max(0, rightDraggableView.frame.origin.x - draggableViewWidth - minimumDistanceBetweenDraggableViews)
+    let maxConstraint = max(0, rightDraggableView.frame.origin.x - draggableViewWidth)
     let newPosition = min(max(0, currentLeadingConstraint + translation.x), maxConstraint)
 
-    guard let leadingConstraint = leadingConstraint else {
-      assertionFailure("leading constraint must be setup")
-      return
-    }
-    leadingConstraint.constant = newPosition
+    trimViewLeadingConstraint.constant = newPosition
   }
   
   private func updateTrailingConstraint(with translation: CGPoint) {
-    let maxConstraint = min(0, 2 * draggableViewWidth - frame.width + leftDraggableView.frame.origin.x + minimumDistanceBetweenDraggableViews)
+    let maxConstraint = min(0, 2 * draggableViewWidth - frame.width + leftDraggableView.frame.origin.x)
     let newPosition = max(min(0, currentTrailingConstraint + translation.x), maxConstraint)
     
-    guard let trailingConstraint = trailingConstraint else {
-      assertionFailure("trailing constraint must be setup")
-      return
-    }
-    trailingConstraint.constant = newPosition
+    trimViewTrailingConstraint.constant = newPosition
   }
   
 }
