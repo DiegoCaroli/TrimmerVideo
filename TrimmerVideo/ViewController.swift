@@ -12,6 +12,8 @@ import AVFoundation
 class ViewController: UIViewController {
   
   @IBOutlet var dimmingView: TrimmerView!
+  @IBOutlet var playerView: UIView!
+  private var player: AVPlayer!
   
   var asset: AVAsset!
   override func viewDidLoad() {
@@ -24,6 +26,9 @@ class ViewController: UIViewController {
     asset = AVAsset(url: fileURL)
     
 //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
+    
+    setupPlayerLayer(for: fileURL)
+
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -32,6 +37,15 @@ class ViewController: UIViewController {
     dimmingView.assetThumbnailsView.asset = asset
   }
   
+  private func setupPlayerLayer(for url: URL) {
+    let playerLayer = AVPlayerLayer()
+    playerLayer.frame = playerView.bounds
+    player = AVPlayer(url: url)
+    
+    player.actionAtItemEnd = .none
+    playerLayer.player = player
+    playerView.layer.addSublayer(playerLayer)
+  }
   
 }
 

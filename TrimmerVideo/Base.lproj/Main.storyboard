@@ -41,11 +41,21 @@
                                     <constraint firstAttribute="height" constant="70" id="6Yn-29-XY9"/>
                                 </constraints>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GrN-Sv-2At">
+                                <rect key="frame" x="20" y="20" width="335" height="350"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="JTa-XB-5Sv"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Maf-po-lGE" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="3SA-lB-LIR"/>
+                            <constraint firstItem="GrN-Sv-2At" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="AJF-OU-eNM"/>
                             <constraint firstItem="dA9-LC-KSe" firstAttribute="top" secondItem="Maf-po-lGE" secondAttribute="bottom" constant="50" id="FaY-Ym-3OY"/>
+                            <constraint firstItem="GrN-Sv-2At" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="LND-XT-gDh"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="GrN-Sv-2At" secondAttribute="trailing" constant="20" id="eYe-Rl-BfP"/>
                             <constraint firstItem="dA9-LC-KSe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="f25-4N-nQT"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Maf-po-lGE" secondAttribute="trailing" constant="20" id="fC6-fd-gDo"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="dA9-LC-KSe" secondAttribute="trailing" constant="20" id="iYQ-NQ-e7V"/>
@@ -55,6 +65,7 @@
                     </view>
                     <connections>
                         <outlet property="dimmingView" destination="dA9-LC-KSe" id="gpp-4u-gRV"/>
+                        <outlet property="playerView" destination="GrN-Sv-2At" id="uod-gb-Fhp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
