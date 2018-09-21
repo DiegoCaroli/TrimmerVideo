@@ -157,13 +157,13 @@ class DimmingView: UIView {
     return CMTime(value: Int64(positionTimeValue), timescale: asset.duration.timescale)
   }
   
-//  func getPosition(from time: CMTime) -> CGFloat? {
-//    guard let asset = asset else {
-//      return nil
-//    }
-//    let timeRatio = CGFloat(time.value) * CGFloat(asset.duration.timescale) /
-//      (CGFloat(time.timescale) * CGFloat(asset.duration.value))
-//    return timeRatio * durationSize
-//  }
+  func getPosition(from time: CMTime) -> CGFloat? {
+    guard let asset = asset else {
+      return nil
+    }
+    let timeRatio = CGFloat(time.value) * CGFloat(asset.duration.timescale) /
+      (CGFloat(time.timescale) * CGFloat(asset.duration.value))
+    return timeRatio * durationSize
+  }
   
 }

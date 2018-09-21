@@ -16,6 +16,7 @@ class ViewController: UIViewController {
   @IBOutlet var playButton: UIButton!
   private var player: AVPlayer?
   private var isPlaying = false
+  private var playbackTimeCheckerTimer: Timer?
   
   
   var asset: AVAsset!
@@ -34,7 +35,7 @@ class ViewController: UIViewController {
 //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
     
     setupPlayerLayer(for: fileURL)
-
+    player?.seek(to: CMTime(value: 0, timescale: 100000000))
   }
   
   override func viewDidAppear(_ animated: Bool) {
@@ -58,12 +59,54 @@ class ViewController: UIViewController {
   @IBAction func playPauseButtonPressed() {
     if !isPlaying {
       player?.play()
+      startPlaybackTimeChecker()
       playButton.setTitle("Pause", for: .normal)
       isPlaying = true
     } else {
       player?.pause()
+      stopPlaybackTimeChecker()
       playButton.setTitle("Play", for: .normal)
       isPlaying = false
+    }
+  }
+  
+  func pause() {
+    player?.pause()
+    stopPlaybackTimeChecker()
+    playButton.setTitle("Play", for: .normal)
+    isPlaying = false
+    dimmingView.resetTimePointer()
+  }
+
+  func startPlaybackTimeChecker() {
+    stopPlaybackTimeChecker()
+    playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
+                                                    selector:
+      #selector(ViewController.onPlaybackTimeChecker), userInfo: nil, repeats: true)
+  }
+
+  func stopPlaybackTimeChecker() {
+    playbackTimeCheckerTimer?.invalidate()
+    playbackTimeCheckerTimer = nil
+  }
+
+  @objc func onPlaybackTimeChecker() {
+
+    guard let startTime = dimmingView.startTime,
+      let endTime = dimmingView.endTime,
+      let player = player else {
+      return
+    }
+
+    let playBackTime = player.currentTime()
+    dimmingView.seek(to: playBackTime)
+
+    if playBackTime >= endTime {
+      player.seek(to: startTime,
+                  toleranceBefore: CMTime.zero,
+                  toleranceAfter: CMTime.zero)
+      dimmingView.seek(to: startTime)
+      pause()
     }
   }
   
@@ -73,6 +116,7 @@ class ViewController: UIViewController {
 extension ViewController: TrimmerViewDelegate {
 
   func beginDraggableTrimmer(with currentTimePointer: CMTime) {
+    
     player?.pause()
     playButton.isHidden = true
     player?.seek(to: currentTimePointer,

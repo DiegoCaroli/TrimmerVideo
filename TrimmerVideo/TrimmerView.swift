@@ -104,23 +104,23 @@ class TrimmerView: UIView {
     return CGFloat(minDuration) * (assetThumbnailsView.frame.width / CGFloat(assetThumbnailsView.asset.duration.seconds))
   }
   
-  private var startTime: CMTime? {
+  var startTime: CMTime? {
     let startPosition = leftDraggableView.frame.origin.x
       + assetThumbnailsView.frame.origin.x
     return assetThumbnailsView.getTime(from: startPosition)
   }
   
-  private var endTime: CMTime? {
+  var endTime: CMTime? {
     let endPosition = rightDraggableView.frame.origin.x
       + assetThumbnailsView.frame.origin.x - draggableViewWidth
     return assetThumbnailsView.getTime(from: endPosition)
   }
   
-//  private var timePointerTime: CMTime? {
-//    let pointerPosition = timePointerView.frame.origin.x
-//      + assetThumbnailsView.frame.origin.x - borderWidth
-//    return assetThumbnailsView.getTime(from: pointerPosition)
-//  }
+  var timePointerTime: CMTime? {
+    let pointerPosition = timePointerView.frame.origin.x
+      + assetThumbnailsView.frame.origin.x - borderWidth
+    return assetThumbnailsView.getTime(from: pointerPosition)
+  }
   
   // MARK: Constraints
   private(set) lazy var currentLeadingConstraint: CGFloat = 0
@@ -188,7 +188,6 @@ class TrimmerView: UIView {
     .constraint(equalTo: topAnchor, constant: borderWidth)
   private lazy var timePointerViewLeadingAnchor = timePointerView.leadingAnchor
     .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
-  
   
   // MARK: - View Life Cycle
   override func awakeFromNib() {
@@ -308,13 +307,17 @@ class TrimmerView: UIView {
       
       if isLeftGesture, let startTime = startTime {
         delegate?.beginDraggableTrimmer(with: startTime)
+        timePointerView.isHidden = true
       } else if let endTime = endTime {
         delegate?.beginDraggableTrimmer(with: endTime)
+        timePointerView.isHidden = true
       }
       
     case .cancelled, .failed, .ended:
       if let startTime = startTime, let endTime = endTime {
         delegate?.finishDraggableTrimmer(with: startTime, endTime: endTime)
+        timePointerView.isHidden = false
+        timePointerViewLeadingAnchor.constant = 0
       }
       
     default:
@@ -341,6 +344,24 @@ class TrimmerView: UIView {
     trimViewTrailingConstraint.constant = newPosition
   }
   
+  //fix me
+  public func seek(to time: CMTime) {
+    if let newPosition = assetThumbnailsView.getPosition(from: time) {
+
+      let offsetPosition = newPosition - assetThumbnailsView.frame.origin.x
+        - leftDraggableView.frame.origin.x
+      print("newPosition: \(newPosition), offsetPosition: \(offsetPosition)")
+      let maxPosition = rightDraggableView.frame.origin.x
+        - (leftDraggableView.frame.origin.x + borderWidth)
+        - timePointerView.frame.width
+      let normalizedPosition = min(max(0, offsetPosition), maxPosition)
+      timePointerViewLeadingAnchor.constant = normalizedPosition
+      layoutIfNeeded()
+    }
+  }
   
+  func resetTimePointer() {
+    timePointerViewLeadingAnchor.constant = 0
+  }
   
 }
