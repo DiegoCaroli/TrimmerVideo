@@ -13,12 +13,16 @@ class ViewController: UIViewController {
   
   @IBOutlet var dimmingView: TrimmerView!
   @IBOutlet var playerView: UIView!
+  @IBOutlet var playButton: UIButton!
   private var player: AVPlayer?
+  private var isPlaying = false
+  
   
   var asset: AVAsset!
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    playerView.backgroundColor = UIColor.clear
     dimmingView.delegate = self
     
     guard let path = Bundle(for: ViewController.self).path(forResource: "IMG_0065", ofType: "m4v") else {
@@ -47,6 +51,20 @@ class ViewController: UIViewController {
     player?.actionAtItemEnd = .none
     playerLayer.player = player
     playerView.layer.addSublayer(playerLayer)
+    playerView.addSubview(playButton)
+  }
+  
+  
+  @IBAction func playPauseButtonPressed() {
+    if !isPlaying {
+      player?.play()
+      playButton.setTitle("Pause", for: .normal)
+      isPlaying = true
+    } else {
+      player?.pause()
+      playButton.setTitle("Play", for: .normal)
+      isPlaying = false
+    }
   }
   
 }
@@ -54,14 +72,16 @@ class ViewController: UIViewController {
 //MARK: TrimmerViewDelegate
 extension ViewController: TrimmerViewDelegate {
 
-  
   func beginDraggableTrimmer(with currentTimePointer: CMTime) {
+    player?.pause()
+    playButton.isHidden = true
     player?.seek(to: currentTimePointer,
                  toleranceBefore: CMTime.zero,
                  toleranceAfter: CMTime.zero)
   }
   
   func finishDraggableTrimmer(with startTime: CMTime, endTime: CMTime) {
+    playButton.isHidden = false
     print(startTime, endTime)
   }
   
