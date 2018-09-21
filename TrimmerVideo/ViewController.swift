@@ -27,7 +27,7 @@ class ViewController: UIViewController {
     dimmingView.delegate = self
     
     guard let path = Bundle(for: ViewController.self)
-        .path(forResource: "Frame debugger compresso", ofType: "mov")
+        .path(forResource: "IMG_0065", ofType: "m4v")
         else { fatalError("impossible load video") }
     
     let fileURL = URL(fileURLWithPath: path, isDirectory: false)
@@ -141,5 +141,4 @@ extension ViewController: TrimmerViewDelegate {
 
     print(startTime, endTime)
   }
-  
 }

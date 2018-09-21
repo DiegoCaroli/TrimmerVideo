@@ -286,11 +286,14 @@ class TrimmerView: UIView {
 
     //MARK: Gestures
     private func setupPanGestures() {
-        let leftPanGesture = UIPanGestureRecognizer(target: self,
-                                                    action: #selector(handlePan))
+        let leftPanGesture = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handlePan))
         leftDraggableView.addGestureRecognizer(leftPanGesture)
-        let rightPanGesture = UIPanGestureRecognizer(target: self,
-                                                     action: #selector(handlePan))
+
+        let rightPanGesture = UIPanGestureRecognizer(
+            target: self,
+            action: #selector(handlePan))
         rightDraggableView.addGestureRecognizer(rightPanGesture)
     }
 

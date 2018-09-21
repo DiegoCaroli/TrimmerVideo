@@ -27,7 +27,7 @@ class DimmingView: UIView {
     var asset: AVAsset! {
         didSet {
             setupAssetImageGenerator(with: asset)
-            size = getThumnailSize(from: asset)
+            size = getThumbnailSize(from: asset)
             imageViewsCount = thumbnailsCount
             generateThumbnails()
         }
@@ -74,15 +74,6 @@ class DimmingView: UIView {
         }
     }
 
-    //    private var imageRect: CGRect {
-    //        return CGRect(x: 0,
-    //                      y: 0,
-    //                      width: bounds.width / CGFloat(thumbnailNumber),
-    //                      height: bounds.height)
-    //    }
-
-    //    private var imagesFrame = [UIImageView]()
-
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -112,10 +103,10 @@ class DimmingView: UIView {
         assetImageGenerator.appliesPreferredTrackTransform = true
         assetImageGenerator.requestedTimeToleranceAfter = CMTime.zero
         assetImageGenerator.requestedTimeToleranceBefore = CMTime.zero
-        assetImageGenerator.maximumSize = getThumnailSize(from: asset)
+        assetImageGenerator.maximumSize = getThumbnailSize(from: asset)
     }
 
-    private func getThumnailSize(from asset: AVAsset) -> CGSize {
+    private func getThumbnailSize(from asset: AVAsset) -> CGSize {
         guard let track = asset.tracks(withMediaType: AVMediaType.video).first
             else { fatalError() }
         let assetSize = track.naturalSize.applying(track.preferredTransform)
@@ -148,10 +139,6 @@ class DimmingView: UIView {
         }
     }
 
-    func getNormalizedPosition(from position: CGFloat) -> CGFloat {
-        return max(min(1, position / durationSize), 0)
-    }
-
     func getTime(from position: CGFloat) -> CMTime? {
         guard let asset = asset else { return nil }
 
@@ -178,4 +165,7 @@ class DimmingView: UIView {
             .map { $0 * durationSize }
     }
 
+    func getNormalizedPosition(from position: CGFloat) -> CGFloat {
+        return max(min(1, position / durationSize), 0)
+    }
 }
