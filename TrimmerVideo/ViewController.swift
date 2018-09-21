@@ -13,11 +13,13 @@ class ViewController: UIViewController {
   
   @IBOutlet var dimmingView: TrimmerView!
   @IBOutlet var playerView: UIView!
-  private var player: AVPlayer!
+  private var player: AVPlayer?
   
   var asset: AVAsset!
   override func viewDidLoad() {
     super.viewDidLoad()
+    
+    dimmingView.delegate = self
     
     guard let path = Bundle(for: ViewController.self).path(forResource: "IMG_0065", ofType: "m4v") else {
       fatalError("impossible load video")
@@ -42,10 +44,25 @@ class ViewController: UIViewController {
     playerLayer.frame = playerView.bounds
     player = AVPlayer(url: url)
     
-    player.actionAtItemEnd = .none
+    player?.actionAtItemEnd = .none
     playerLayer.player = player
     playerView.layer.addSublayer(playerLayer)
   }
   
 }
 
+//MARK: TrimmerViewDelegate
+extension ViewController: TrimmerViewDelegate {
+
+  
+  func beginDraggableTrimmer(with currentTimePointer: CMTime) {
+    player?.seek(to: currentTimePointer,
+                 toleranceBefore: CMTime.zero,
+                 toleranceAfter: CMTime.zero)
+  }
+  
+  func finishDraggableTrimmer(with startTime: CMTime, endTime: CMTime) {
+    print(startTime, endTime)
+  }
+  
+}

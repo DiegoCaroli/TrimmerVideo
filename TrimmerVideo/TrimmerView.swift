@@ -8,7 +8,12 @@
 //
 
 import UIKit
+import AVFoundation
 
+@objc protocol TrimmerViewDelegate: class {
+  func beginDraggableTrimmer(with currentTimeTrim: CMTime)
+  @objc func finishDraggableTrimmer(with startTime: CMTime, endTime: CMTime)
+}
 @IBDesignable
 class TrimmerView: UIView {
   
@@ -21,6 +26,8 @@ class TrimmerView: UIView {
   
   @IBInspectable var minDuration: Int = 0
   @IBInspectable var isTimePointerVisible: Bool = true
+  
+  weak var delegate: TrimmerViewDelegate?
   
   //MARK: Views
   private let trimView: UIView = {
@@ -97,6 +104,23 @@ class TrimmerView: UIView {
     return CGFloat(minDuration) * (assetThumbnailsView.frame.width / CGFloat(assetThumbnailsView.asset.duration.seconds))
   }
   
+  private var startTime: CMTime? {
+    let startPosition = leftDraggableView.frame.origin.x
+      + assetThumbnailsView.frame.origin.x
+    return assetThumbnailsView.getTime(from: startPosition)
+  }
+  
+  private var endTime: CMTime? {
+    let endPosition = rightDraggableView.frame.origin.x
+      + assetThumbnailsView.frame.origin.x - draggableViewWidth
+    return assetThumbnailsView.getTime(from: endPosition)
+  }
+  
+//  private var timePointerTime: CMTime? {
+//    let pointerPosition = timePointerView.frame.origin.x
+//      + assetThumbnailsView.frame.origin.x - borderWidth
+//    return assetThumbnailsView.getTime(from: pointerPosition)
+//  }
   
   // MARK: Constraints
   private(set) lazy var currentLeadingConstraint: CGFloat = 0
@@ -282,6 +306,17 @@ class TrimmerView: UIView {
         self.layoutIfNeeded()
       }
       
+      if isLeftGesture, let startTime = startTime {
+        delegate?.beginDraggableTrimmer(with: startTime)
+      } else if let endTime = endTime {
+        delegate?.beginDraggableTrimmer(with: endTime)
+      }
+      
+    case .cancelled, .failed, .ended:
+      if let startTime = startTime, let endTime = endTime {
+        delegate?.finishDraggableTrimmer(with: startTime, endTime: endTime)
+      }
+      
     default:
       break
     }
@@ -305,5 +340,7 @@ class TrimmerView: UIView {
     
     trimViewTrailingConstraint.constant = newPosition
   }
+  
+  
   
 }
