@@ -12,6 +12,7 @@ import UIKit
 @IBDesignable
 class TrimmerView: UIView {
   
+  // MARK: IBInspectable
   @IBInspectable var mainColor: UIColor = UIColor.black {
     didSet {
       //update color, customisation
@@ -21,8 +22,7 @@ class TrimmerView: UIView {
   @IBInspectable var minDuration: Int = 0
   @IBInspectable var isTimePointerVisible: Bool = true
   
-  private let borderWidth: CGFloat = 2
-  
+  //MARK: Views
   private let trimView: UIView = {
     let view = UIView()
     view.frame = .zero
@@ -81,9 +81,6 @@ class TrimmerView: UIView {
     return view
   }()
   
-  private let draggableViewWidth: CGFloat = 20
-  private let timePointerViewWidth: CGFloat = 2
-  
   var assetThumbnailsView: DimmingView = {
     let assetView = DimmingView()
     assetView.translatesAutoresizingMaskIntoConstraints = false
@@ -91,12 +88,19 @@ class TrimmerView: UIView {
     return assetView
   }()
   
-  private(set) lazy var currentLeadingConstraint: CGFloat = 0
-  private(set) lazy var currentTrailingConstraint: CGFloat = 0
+  //MARK: Properties
+  private let draggableViewWidth: CGFloat = 20
+  private let timePointerViewWidth: CGFloat = 2
+  private let borderWidth: CGFloat = 2
   
   private var minimumDistanceBetweenDraggableViews: CGFloat {
     return CGFloat(minDuration) * (assetThumbnailsView.frame.width / CGFloat(assetThumbnailsView.asset.duration.seconds))
   }
+  
+  
+  // MARK: Constraints
+  private(set) lazy var currentLeadingConstraint: CGFloat = 0
+  private(set) lazy var currentTrailingConstraint: CGFloat = 0
   
   private lazy var dimmingViewTopAnchor = assetThumbnailsView.topAnchor
     .constraint(equalTo: topAnchor, constant: 0)
@@ -161,6 +165,8 @@ class TrimmerView: UIView {
   private lazy var timePointerViewLeadingAnchor = timePointerView.leadingAnchor
     .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
   
+  
+  // MARK: - View Life Cycle
   override func awakeFromNib() {
     super.awakeFromNib()
     
@@ -204,6 +210,7 @@ class TrimmerView: UIView {
     
   }
   
+  // MARK: Setups views
   private func setup() {
     backgroundColor = UIColor.clear
     
@@ -241,6 +248,7 @@ class TrimmerView: UIView {
     }
   }
   
+  //MARK: Gestures
   private func setupPanGestures() {
     let leftPanGesture = UIPanGestureRecognizer(target: self,
                                                 action: #selector(handlePan))
@@ -279,6 +287,7 @@ class TrimmerView: UIView {
     }
   }
   
+  //MARK: Methods
   private func updateLeadingConstraint(with translation: CGPoint) {
     let maxConstraint = max(0, rightDraggableView.frame.origin.x
       - draggableViewWidth - minimumDistanceBetweenDraggableViews)
