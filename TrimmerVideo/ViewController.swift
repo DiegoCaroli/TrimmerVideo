@@ -26,9 +26,10 @@ class ViewController: UIViewController {
     playerView.backgroundColor = UIColor.clear
     dimmingView.delegate = self
     
-    guard let path = Bundle(for: ViewController.self).path(forResource: "IMG_0065", ofType: "m4v") else {
-      fatalError("impossible load video")
-    }
+    guard let path = Bundle(for: ViewController.self)
+        .path(forResource: "Frame debugger compresso", ofType: "mov")
+        else { fatalError("impossible load video") }
+    
     let fileURL = URL(fileURLWithPath: path, isDirectory: false)
     asset = AVAsset(url: fileURL)
     
@@ -119,13 +120,25 @@ extension ViewController: TrimmerViewDelegate {
     
     player?.pause()
     playButton.isHidden = true
-    player?.seek(to: currentTimePointer,
-                 toleranceBefore: CMTime.zero,
-                 toleranceAfter: CMTime.zero)
+
+    assert(currentTimePointer.seconds >= 0)
+
+    assert(currentTimePointer.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+
+    player?.seek(to: currentTimePointer		)
   }
   
   func finishDraggableTrimmer(with startTime: CMTime, endTime: CMTime) {
     playButton.isHidden = false
+
+    assert(startTime.seconds >= 0)
+
+    assert(startTime.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+
+    assert(endTime.seconds >= 0)
+
+    assert(endTime.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+
     print(startTime, endTime)
   }
   
