@@ -11,8 +11,18 @@ import UIKit
 import AVFoundation
 
 @objc protocol TrimmerViewDelegate: class {
-    func beginDraggableTrimmer(with currentTimeTrim: CMTime)
-    @objc func finishDraggableTrimmer(with startTime: CMTime, endTime: CMTime)
+    @objc optional func trimmerDidBeginDragging(
+        _ trimmer: TrimmerView,
+        with currentTimeTrim: CMTime)
+
+    @objc optional func trimmerDidChangeDraggingPosition(
+        _ trimmer: TrimmerView,
+        with currentTimeTrim: CMTime)
+
+    @objc optional func trimmerDidEndDragging(
+        _ trimmer: TrimmerView,
+        with startTime: CMTime,
+        endTime: CMTime)
 }
 
 @IBDesignable
@@ -126,12 +136,6 @@ class TrimmerView: UIView {
 
         return assetThumbnailsView.getTime(from: endPosition)
     }
-
-//    var timePointerTime: CMTime? {
-//        let pointerPosition = timePointerView.frame.origin.x
-//            + assetThumbnailsView.frame.origin.x - borderWidth
-//        return assetThumbnailsView.getTime(from: pointerPosition)
-//    }
 
     // MARK: Constraints
     private(set) lazy var currentLeadingConstraint: CGFloat = 0
@@ -309,6 +313,11 @@ class TrimmerView: UIView {
             } else {
                 currentTrailingConstraint = trimViewTrailingConstraint.constant
             }
+
+            if let start = startTime {
+                delegate?.trimmerDidBeginDragging?(self, with: start)
+            }
+
         case .changed:
             let translation = sender.translation(in: view)
             if isLeftGesture {
@@ -322,16 +331,20 @@ class TrimmerView: UIView {
             }
 
             if isLeftGesture, let startTime = startTime {
-                delegate?.beginDraggableTrimmer(with: startTime)
+                delegate?.trimmerDidChangeDraggingPosition?(self, with: startTime)
                 timePointerView.isHidden = true
             } else if let endTime = endTime {
-                delegate?.beginDraggableTrimmer(with: endTime)
+                delegate?.trimmerDidChangeDraggingPosition?(self, with: endTime)
                 timePointerView.isHidden = true
             }
 
         case .cancelled, .failed, .ended:
             if let startTime = startTime, let endTime = endTime {
-                delegate?.finishDraggableTrimmer(with: startTime, endTime: endTime)
+                delegate?.trimmerDidEndDragging?(
+                    self,
+                    with: startTime,
+                    endTime: endTime)
+
                 timePointerView.isHidden = false
                 timePointerViewLeadingAnchor.constant = 0
             }
@@ -381,7 +394,14 @@ class TrimmerView: UIView {
         guard let newPosition = assetThumbnailsView.getPosition(from: time)
             else { return }
 
-        let offsetPosition = newPosition//+ draggableViewWidth
+        assert(assetThumbnailsView.getNormalizedTime(from: time)! < 1.1)
+
+        let offsetPosition = assetThumbnailsView
+            .convert(CGPoint(x: newPosition, y: 0), to: trimView)
+            .x - draggableViewWidth
+
+//        let offsetPosition = newPosition
+//            - leftDraggableView.frame.maxX
 
         let maxPosition = rightDraggableView.frame.minX
             - leftDraggableView.frame.maxX

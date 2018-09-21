@@ -154,10 +154,9 @@ class DimmingView: UIView {
     func getNormalizedTime(from time: CMTime) -> CGFloat? {
         guard let asset = asset else { return nil }
 
-        let time = CGFloat(time.value) / CGFloat(time.timescale)
-        let assetDuration = CGFloat(asset.duration.value) / CGFloat(asset.duration.timescale)
-
-        return time / assetDuration
+        let result = CGFloat(time.seconds / asset.duration.seconds)
+        assert(result < 1.05)
+        return result
     }
 
     func getPosition(from time: CMTime) -> CGFloat? {
