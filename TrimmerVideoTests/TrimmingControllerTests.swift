@@ -12,25 +12,34 @@ import XCTest
 class TrimmingControllerTests: XCTestCase {
     
     var trimmingController: TrimmingController!
-    var trimmerView: TrimmerView!
 
     override func setUp() {
         super.setUp()
         
         trimmingController = TrimmingController()
-        let trimmerView = TrimmerView()
-        trimmingController.trimmerView = trimmerView
+        trimmingController.trimmerView = TrimmerView()
+        trimmingController.playPauseButton = UIButton()
     }
 
     override func tearDown() {
         trimmingController = nil
-        trimmerView = nil
         
         super.tearDown()
     }
     
     func testDelegateNotNil() {
         XCTAssertNotNil(trimmingController.trimmerView.delegate)
+    }
+    
+    func testPauseTextPlayButton() {
+    trimmingController.playPauseButtonPressed()
+        XCTAssertEqual(trimmingController.playPauseButton.currentTitle, "Pause")
+    }
+    
+    func testPlayTextPlayButton() {
+        trimmingController.playPauseButtonPressed()
+        trimmingController.playPauseButtonPressed()
+        XCTAssertEqual(trimmingController.playPauseButton.currentTitle, "Play")
     }
 
 }
