@@ -112,7 +112,7 @@ class TrimmerView: UIView {
         return view
     }()
     
-    private lazy var leftDraggableView: UIView = {
+    lazy var leftDraggableView: UIView = {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = mainColor
@@ -121,7 +121,7 @@ class TrimmerView: UIView {
         return view
     }()
     
-    private lazy var rightDraggableView: UIView = {
+    lazy var rightDraggableView: UIView = {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = mainColor

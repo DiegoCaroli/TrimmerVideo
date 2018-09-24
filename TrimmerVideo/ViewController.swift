@@ -40,6 +40,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(animated)
 
         trimmingController.generateThumbnails(for: asset)
+        
     }
 
 }
