@@ -94,7 +94,7 @@ class TrimmerView: UIView {
         }
     }
     
-    @IBInspectable var minVideoDurationAfterTrimming: CMTime = .zero
+    @IBInspectable var minVideoDurationAfterTrimming: Double = 0
     
     @IBInspectable var isTimePointerVisible: Bool = true
     
@@ -183,11 +183,14 @@ class TrimmerView: UIView {
     }()
     
     //MARK: Properties
+    
     private var minimumDistanceBetweenDraggableViews: CGFloat? {
-//        return CGFloat(1) * assetThumbnailsView.durationSize / CGFloat(assetThumbnailsView.videoDuration.seconds)
-        return assetThumbnailsView
-            .getPosition(from: minVideoDurationAfterTrimming)
-            .map { $0 + borderWidth }
+        return CGFloat(minVideoDurationAfterTrimming)
+            * assetThumbnailsView.durationSize
+            / CGFloat(assetThumbnailsView.videoDuration.seconds)
+//        return assetThumbnailsView
+//            .getPosition(from: minVideoDurationAfterTrimming)
+//            .map { $0 + borderWidth }
     }
     
     var startTime: CMTime? {
