@@ -113,7 +113,7 @@ class TrimmerView: UIView {
     }()
     
     lazy var leftDraggableView: UIView = {
-        let view = UIView()
+        let view = DraggableView()
         view.frame = .zero
         view.backgroundColor = mainColor
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -122,7 +122,7 @@ class TrimmerView: UIView {
     }()
     
     lazy var rightDraggableView: UIView = {
-        let view = UIView()
+        let view = DraggableView()
         view.frame = .zero
         view.backgroundColor = mainColor
         view.translatesAutoresizingMaskIntoConstraints = false

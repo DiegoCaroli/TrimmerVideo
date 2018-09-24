@@ -86,6 +86,7 @@
 		F199E70321590D97009F6077 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				F1E3B1D821523C9800A6943C /* IMG_0065.m4v */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -113,7 +114,6 @@
 			children = (
 				F1E3B1C621523C7F00A6943C /* AppDelegate.swift */,
 				F1E3B1C821523C7F00A6943C /* ViewController.swift */,
-				F1E3B1D821523C9800A6943C /* IMG_0065.m4v */,
 				F1C95C5D21528B3B00CC797A /* TrimmerView.swift */,
 				F1E3B1DA21523D3A00A6943C /* AssetThumbnailsView.swift */,
 				F199E6ED2158E541009F6077 /* DraggableView.swift */,
