@@ -11,7 +11,7 @@ import AVFoundation
 
 class AssetThumbnailsView: UIView {
 
-    let stackView: UIStackView = {
+    let thumbsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -20,15 +20,15 @@ class AssetThumbnailsView: UIView {
 
     var asset: AVAsset! {
         didSet {
-            setupAssetImageGenerator(with: asset)
-            size = getThumbnailSize(from: asset)
-            imageViewsCount = thumbnailsCount
+            thumbnailSize = getThumbnailSize(from: asset)
+            regenerateThumbViews(count: thumbnailsCount)
             generateThumbnails()
         }
     }
 
-    private var assetImageGenerator: AVAssetImageGenerator!
-    private var frameForTimes = [NSValue]()
+    private lazy var assetImageGenerator: AVAssetImageGenerator = setupAssetImageGenerator(with: asset)
+    
+    private lazy var thumbnailSize: CGSize = getThumbnailSize(from: asset)
 
     private var totalTimeLength: Int {
         return Int(videoDuration.seconds * Double(videoDuration.timescale))
@@ -42,31 +42,14 @@ class AssetThumbnailsView: UIView {
         return bounds.width
     }
 
-    private var size: CGSize = .zero
-
     private var thumbnailsCount: Int {
-        var number = bounds.width / size.width
+        var number = bounds.width / thumbnailSize.width
         number.round(.toNearestOrAwayFromZero)
         return Int(number)
     }
 
     private var step: Int {
         return totalTimeLength / thumbnailsCount
-    }
-
-    var imageViewsCount: Int = 0 {
-        didSet {
-            (0..<imageViewsCount).forEach { index in
-                let thumbView: UIImageView = {
-                    let imageView = UIImageView()
-                    imageView.frame.size = size
-                    imageView.tag = index
-                    imageView.backgroundColor = UIColor.black
-                    return imageView
-                }()
-                self.stackView.addArrangedSubview(thumbView)
-            }
-        }
     }
 
     override init(frame: CGRect) {
@@ -86,19 +69,20 @@ class AssetThumbnailsView: UIView {
     override func layoutSubviews() {
         super.layoutSubviews()
 
-        stackView.frame = bounds
+        thumbsStackView.frame = bounds
     }
 
     private func setup() {
-        addSubview(stackView)
+        addSubview(thumbsStackView)
     }
 
-    private func setupAssetImageGenerator(with asset: AVAsset) {
-        assetImageGenerator = AVAssetImageGenerator(asset: asset)
-        assetImageGenerator.appliesPreferredTrackTransform = true
-        assetImageGenerator.requestedTimeToleranceAfter = CMTime.zero
-        assetImageGenerator.requestedTimeToleranceBefore = CMTime.zero
-        assetImageGenerator.maximumSize = getThumbnailSize(from: asset)
+    private func setupAssetImageGenerator(with asset: AVAsset) -> AVAssetImageGenerator {
+        let generator = AVAssetImageGenerator(asset: asset)
+        generator.appliesPreferredTrackTransform = true
+        generator.requestedTimeToleranceAfter = CMTime.zero
+        generator.requestedTimeToleranceBefore = CMTime.zero
+        generator.maximumSize = getThumbnailSize(from: asset)
+        return generator
     }
 
     private func getThumbnailSize(from asset: AVAsset) -> CGSize {
@@ -117,19 +101,23 @@ class AssetThumbnailsView: UIView {
     private func generateThumbnails() {
         assetImageGenerator.cancelAllCGImageGeneration()
 
-        frameForTimes = (0..<thumbnailsCount).map {
+        let frameForTimes: [NSValue] = (0..<thumbnailsCount).map {
             let cmTime = CMTime(value: Int64($0 * step), timescale: Int32(videoDuration.timescale))
             return NSValue(time: cmTime)
         }
 
-        var index = 0
-        assetImageGenerator.generateCGImagesAsynchronously(forTimes:
-        frameForTimes) { (_, image, _, _, _) in
-            guard let image = image else { return }
-            DispatchQueue.main.async { [weak self] in
-                guard let imageViews = self?.stackView.arrangedSubviews as? [UIImageView] else { return }
-                imageViews[index].image = UIImage(cgImage: image)
-                index += 1
+        assert(frameForTimes.count == thumbsStackView.arrangedSubviews.count)
+        
+        DispatchQueue.global(qos: .userInitiated).async { [assetImageGenerator] in
+            var index = 0
+            assetImageGenerator.generateCGImagesAsynchronously(forTimes:
+            frameForTimes) { (_, image, _, _, _) in
+                guard let image = image else { return }
+                DispatchQueue.main.async { [weak self] in
+                    guard let imageViews = self?.thumbsStackView.arrangedSubviews as? [UIImageView] else { return }
+                    imageViews[index].image = UIImage(cgImage: image)
+                    index += 1
+                }
             }
         }
     }
@@ -161,5 +149,18 @@ class AssetThumbnailsView: UIView {
 
     func getNormalizedPosition(from position: CGFloat) -> CGFloat {
         return max(min(1, position / durationSize), 0)
+    }
+    
+    func regenerateThumbViews(count: Int) {
+        
+        thumbsStackView.arrangedSubviews
+            .forEach(thumbsStackView.removeArrangedSubview)
+        
+        (0..<count).map { _ in
+            let imageView = UIImageView()
+            imageView.frame.size = thumbnailSize
+            imageView.backgroundColor = UIColor.black
+            return imageView
+            }.forEach(thumbsStackView.addArrangedSubview)
     }
 }
