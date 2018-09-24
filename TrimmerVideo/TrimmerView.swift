@@ -175,7 +175,7 @@ class TrimmerView: UIView {
         return view
     }()
     
-    let assetThumbnailsView: AssetThumbnailsView = {
+    var assetThumbnailsView: AssetThumbnailsView = {
         let assetView = AssetThumbnailsView()
         assetView.translatesAutoresizingMaskIntoConstraints = false
         assetView.isUserInteractionEnabled = true

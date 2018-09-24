@@ -127,7 +127,7 @@ class AssetThumbnailsView: UIView {
         frameForTimes) { (_, image, _, _, _) in
             guard let image = image else { return }
             DispatchQueue.main.async { [weak self] in
-                let imageViews = self!.stackView.arrangedSubviews as! [UIImageView]
+                let imageViews = self?.stackView.arrangedSubviews as! [UIImageView]
                 imageViews[index].image = UIImage(cgImage: image)
                 index += 1
             }

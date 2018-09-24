@@ -10,6 +10,7 @@
 		F199E6EE2158E541009F6077 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6ED2158E541009F6077 /* DraggableView.swift */; };
 		F199E6F42158F8E1009F6077 /* TrimmingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6F32158F8E1009F6077 /* TrimmingController.swift */; };
 		F199E6FC21590D60009F6077 /* TrimmerVideoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */; };
+		F199E70421591418009F6077 /* IMG_0065.m4v in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1D821523C9800A6943C /* IMG_0065.m4v */; };
 		F1C95C5E21528B3B00CC797A /* TrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C95C5D21528B3B00CC797A /* TrimmerView.swift */; };
 		F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C621523C7F00A6943C /* AppDelegate.swift */; };
 		F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C821523C7F00A6943C /* ViewController.swift */; };
@@ -70,9 +71,17 @@
 			isa = PBXGroup;
 			children = (
 				F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */,
+				F199E70321590D97009F6077 /* Resources */,
 				F199E6FD21590D60009F6077 /* Info.plist */,
 			);
 			path = TrimmerVideoTests;
+			sourceTree = "<group>";
+		};
+		F199E70321590D97009F6077 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		F1E3B1BA21523C7F00A6943C = {
@@ -192,6 +201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F199E70421591418009F6077 /* IMG_0065.m4v in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -265,7 +275,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G8TLTA9GAD;
+				DEVELOPMENT_TEAM = 75SMYU6JAM;
 				INFOPLIST_FILE = TrimmerVideoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -285,7 +295,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = G8TLTA9GAD;
+				DEVELOPMENT_TEAM = 75SMYU6JAM;
 				INFOPLIST_FILE = TrimmerVideoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
