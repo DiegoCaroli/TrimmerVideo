@@ -188,9 +188,6 @@ class TrimmerView: UIView {
         return CGFloat(minVideoDurationAfterTrimming)
             * assetThumbnailsView.durationSize
             / CGFloat(assetThumbnailsView.videoDuration.seconds)
-//        return assetThumbnailsView
-//            .getPosition(from: minVideoDurationAfterTrimming)
-//            .map { $0 + borderWidth }
     }
     
     var startTime: CMTime? {
