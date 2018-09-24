@@ -35,7 +35,7 @@ class TrimmingController: NSObject {
     }
     
     func generateThumbnails(for asset: AVAsset) {
-        trimmerView.assetThumbnailsView.asset = asset
+        trimmerView.thumbnailsView.asset = asset
     }
     
     @IBAction func playPauseButtonPressed() {
@@ -106,7 +106,7 @@ extension TrimmingController: TrimmerViewDelegate {
         
         assert(currentTimePointer.seconds >= 0)
         
-        assert(currentTimePointer.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
+        assert(currentTimePointer.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
         
         player?.seek(
             to: currentTimePointer,
@@ -123,11 +123,11 @@ extension TrimmingController: TrimmerViewDelegate {
         
         assert(startTime.seconds >= 0)
         
-        assert(startTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
+        assert(startTime.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
         
         assert(endTime.seconds >= 0)
         
-        assert(endTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
+        assert(endTime.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
         
         print(startTime, endTime)
     }

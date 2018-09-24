@@ -52,9 +52,9 @@ class TrimmerView: UIView {
     
     @IBInspectable var draggableViewWidth: CGFloat = 20 {
         didSet {
-            dimmingViewLeadingAnchor = assetThumbnailsView.leadingAnchor
+            dimmingViewLeadingAnchor = thumbnailsView.leadingAnchor
                 .constraint(equalTo: leadingAnchor, constant: draggableViewWidth)
-            dimmingViewTrailingAnchor = assetThumbnailsView.trailingAnchor
+            dimmingViewTrailingAnchor = thumbnailsView.trailingAnchor
                 .constraint(equalTo: trailingAnchor, constant: -draggableViewWidth)
             trimViewWidthContraint = trimView.widthAnchor
                 .constraint(greaterThanOrEqualToConstant: draggableViewWidth * 2 + borderWidth)
@@ -175,44 +175,44 @@ class TrimmerView: UIView {
         return view
     }()
     
-    var assetThumbnailsView: AssetThumbnailsView = {
-        let assetView = AssetThumbnailsView()
-        assetView.translatesAutoresizingMaskIntoConstraints = false
-        assetView.isUserInteractionEnabled = true
-        return assetView
+    var thumbnailsView: ThumbnailsView = {
+        let thumbsView = ThumbnailsView()
+        thumbsView.translatesAutoresizingMaskIntoConstraints = false
+        thumbsView.isUserInteractionEnabled = true
+        return thumbsView
     }()
     
     //MARK: Properties
     
     private var minimumDistanceBetweenDraggableViews: CGFloat? {
         return CGFloat(minVideoDurationAfterTrimming)
-            * assetThumbnailsView.durationSize
-            / CGFloat(assetThumbnailsView.videoDuration.seconds)
+            * thumbnailsView.durationSize
+            / CGFloat(thumbnailsView.videoDuration.seconds)
     }
     
     var startTime: CMTime? {
-        let startPosition = leftDraggableView.frame.maxX - assetThumbnailsView.frame.origin.x
+        let startPosition = leftDraggableView.frame.maxX - thumbnailsView.frame.origin.x
         
-        return assetThumbnailsView.getTime(from: startPosition)
+        return thumbnailsView.getTime(from: startPosition)
     }
     
     var endTime: CMTime? {
-        let endPosition = rightDraggableView.frame.minX - assetThumbnailsView.frame.origin.x
+        let endPosition = rightDraggableView.frame.minX - thumbnailsView.frame.origin.x
         
-        return assetThumbnailsView.getTime(from: endPosition)
+        return thumbnailsView.getTime(from: endPosition)
     }
     
     // MARK: Constraints
     private(set) lazy var currentLeadingConstraint: CGFloat = 0
     private(set) lazy var currentTrailingConstraint: CGFloat = 0
     
-    private lazy var dimmingViewTopAnchor = assetThumbnailsView.topAnchor
+    private lazy var dimmingViewTopAnchor = thumbnailsView.topAnchor
         .constraint(equalTo: topAnchor, constant: 0)
-    private lazy var dimmingViewBottomAnchor = assetThumbnailsView.bottomAnchor
+    private lazy var dimmingViewBottomAnchor = thumbnailsView.bottomAnchor
         .constraint(equalTo: bottomAnchor, constant: 0)
-    private lazy var dimmingViewLeadingAnchor = assetThumbnailsView.leadingAnchor
+    private lazy var dimmingViewLeadingAnchor = thumbnailsView.leadingAnchor
         .constraint(equalTo: leadingAnchor, constant: draggableViewWidth)
-    private lazy var dimmingViewTrailingAnchor = assetThumbnailsView.trailingAnchor
+    private lazy var dimmingViewTrailingAnchor = thumbnailsView.trailingAnchor
         .constraint(equalTo: trailingAnchor, constant: -draggableViewWidth)
     
     private lazy var trimViewTopAnchorConstraint = trimView.topAnchor
@@ -335,7 +335,7 @@ class TrimmerView: UIView {
     private func setup() {
         backgroundColor = UIColor.clear
         
-        addSubview(assetThumbnailsView)
+        addSubview(thumbnailsView)
         addSubview(trimView)
         
         addSubview(leftDraggableView)
@@ -473,12 +473,12 @@ class TrimmerView: UIView {
     }
     
     func seek(to time: CMTime) {
-        guard let newPosition = assetThumbnailsView.getPosition(from: time)
+        guard let newPosition = thumbnailsView.getPosition(from: time)
             else { return }
         
-        assert(assetThumbnailsView.getNormalizedTime(from: time)! < 1.1)
+        assert(thumbnailsView.getNormalizedTime(from: time)! < 1.1)
         
-        let offsetPosition = assetThumbnailsView
+        let offsetPosition = thumbnailsView
             .convert(CGPoint(x: newPosition, y: 0), to: trimView)
             .x - draggableViewWidth
         

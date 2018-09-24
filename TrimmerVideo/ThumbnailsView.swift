@@ -1,5 +1,5 @@
 //
-//  AssetThumbnailsView.swift
+//  ThumbnailsView.swift
 //  TrimmerVideo
 //
 //  Created by Diego Caroli on 19/09/2018.
@@ -9,9 +9,9 @@
 import UIKit
 import AVFoundation
 
-class AssetThumbnailsView: UIView {
+class ThumbnailsView: UIView {
 
-    let thumbsStackView: UIStackView = {
+    private let thumbsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
@@ -48,7 +48,7 @@ class AssetThumbnailsView: UIView {
         return Int(number)
     }
 
-    private var step: Int {
+    private var videoStep: Int {
         return totalTimeLength / thumbnailsCount
     }
 
@@ -102,7 +102,8 @@ class AssetThumbnailsView: UIView {
         assetImageGenerator.cancelAllCGImageGeneration()
 
         let frameForTimes: [NSValue] = (0..<thumbnailsCount).map {
-            let cmTime = CMTime(value: Int64($0 * step), timescale: Int32(videoDuration.timescale))
+            let cmTime = CMTime(value: Int64($0 * videoStep),
+                                timescale: Int32(videoDuration.timescale))
             return NSValue(time: cmTime)
         }
 
@@ -114,7 +115,8 @@ class AssetThumbnailsView: UIView {
             frameForTimes) { (_, image, _, _, _) in
                 guard let image = image else { return }
                 DispatchQueue.main.async { [weak self] in
-                    guard let imageViews = self?.thumbsStackView.arrangedSubviews as? [UIImageView] else { return }
+                    guard let imageViews = self?.thumbsStackView
+                        .arrangedSubviews as? [UIImageView] else { return }
                     imageViews[index].image = UIImage(cgImage: image)
                     index += 1
                 }
@@ -127,7 +129,8 @@ class AssetThumbnailsView: UIView {
 
         let normalizedRatio = getNormalizedPosition(from: position)
 
-        let positionTimeValue = Double(normalizedRatio) * Double(asset.duration.value)
+        let positionTimeValue = Double(normalizedRatio)
+            * Double(asset.duration.value)
 
         return CMTime(
             value: Int64(positionTimeValue),
