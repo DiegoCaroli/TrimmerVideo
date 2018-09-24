@@ -11,12 +11,14 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
+    // MARK: IBOutlets
     @IBOutlet var playerView: UIView!
-   
-    @IBOutlet var trim: TrimmingController!
+    @IBOutlet var trimmingController: TrimmingController!
     
+    // MARK: Properties
     var asset: AVAsset!
     
+    // MARK: View Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,14 +33,13 @@ class ViewController: UIViewController {
 
         //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
 
-        trim.setupPlayerLayer(for: fileURL, with: playerView)
-
+        trimmingController.setupPlayerLayer(for: fileURL, with: playerView)
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        trim.generateThumbnails(for: asset)
+        trimmingController.generateThumbnails(for: asset)
     }
 
 }

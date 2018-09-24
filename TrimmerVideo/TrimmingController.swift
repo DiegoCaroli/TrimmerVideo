@@ -11,6 +11,7 @@ import AVFoundation
 
 class TrimmingController: NSObject {
     
+    // MARK: IBOutlets
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var trimmerView: TrimmerView!{
         didSet {
@@ -18,6 +19,7 @@ class TrimmingController: NSObject {
         }
     }
     
+    // MARK: Properties
     private var player: AVPlayer?
     private var isPlaying = false
     private var playbackTimeCheckerTimer: Timer?
@@ -50,7 +52,7 @@ class TrimmingController: NSObject {
         }
     }
     
-    func pause() {
+    private func pause() {
         player?.pause()
         stopPlaybackTimeChecker()
         playPauseButton.setTitle("Play", for: .normal)
@@ -58,11 +60,12 @@ class TrimmingController: NSObject {
         trimmerView.resetTimePointer()
     }
     
-    func startPlaybackTimeChecker() {
+    private func startPlaybackTimeChecker() {
         stopPlaybackTimeChecker()
-        playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
-                                                        selector:
-            #selector(onPlaybackTimeChecker), userInfo: nil, repeats: true)
+        playbackTimeCheckerTimer = Timer.scheduledTimer(
+            timeInterval: 0.1,
+            target: self,
+            selector: #selector(onPlaybackTimeChecker), userInfo: nil, repeats: true)
     }
     
     func stopPlaybackTimeChecker() {

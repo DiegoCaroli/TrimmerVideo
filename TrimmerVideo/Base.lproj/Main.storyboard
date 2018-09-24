@@ -79,7 +79,7 @@
                     </view>
                     <connections>
                         <outlet property="playerView" destination="GrN-Sv-2At" id="uod-gb-Fhp"/>
-                        <outlet property="trim" destination="UCJ-V4-Ngx" id="Bxg-tC-Bvn"/>
+                        <outlet property="trimmingController" destination="UCJ-V4-Ngx" id="cjK-XR-KFu"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
