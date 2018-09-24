@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F199E6EE2158E541009F6077 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6ED2158E541009F6077 /* DraggableView.swift */; };
 		F199E6F42158F8E1009F6077 /* TrimmingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6F32158F8E1009F6077 /* TrimmingController.swift */; };
+		F199E6FC21590D60009F6077 /* TrimmerVideoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */; };
 		F1C95C5E21528B3B00CC797A /* TrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C95C5D21528B3B00CC797A /* TrimmerView.swift */; };
 		F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C621523C7F00A6943C /* AppDelegate.swift */; };
 		F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C821523C7F00A6943C /* ViewController.swift */; };
@@ -19,9 +20,22 @@
 		F1E3B1DB21523D3A00A6943C /* AssetThumbnailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1DA21523D3A00A6943C /* AssetThumbnailsView.swift */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		F199E6FE21590D60009F6077 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = F1E3B1BB21523C7F00A6943C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = F1E3B1C221523C7F00A6943C;
+			remoteInfo = TrimmerVideo;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		F199E6ED2158E541009F6077 /* DraggableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		F199E6F32158F8E1009F6077 /* TrimmingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmingController.swift; sourceTree = "<group>"; };
+		F199E6F921590D60009F6077 /* TrimmerVideoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrimmerVideoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerVideoTests.swift; sourceTree = "<group>"; };
+		F199E6FD21590D60009F6077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F1C95C5D21528B3B00CC797A /* TrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerView.swift; sourceTree = "<group>"; };
 		F1E3B1C321523C7F00A6943C /* TrimmerVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrimmerVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E3B1C621523C7F00A6943C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +49,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		F199E6F621590D60009F6077 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E3B1C021523C7F00A6943C /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -45,10 +66,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F199E6FA21590D60009F6077 /* TrimmerVideoTests */ = {
+			isa = PBXGroup;
+			children = (
+				F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */,
+				F199E6FD21590D60009F6077 /* Info.plist */,
+			);
+			path = TrimmerVideoTests;
+			sourceTree = "<group>";
+		};
 		F1E3B1BA21523C7F00A6943C = {
 			isa = PBXGroup;
 			children = (
 				F1E3B1C521523C7F00A6943C /* TrimmerVideo */,
+				F199E6FA21590D60009F6077 /* TrimmerVideoTests */,
 				F1E3B1C421523C7F00A6943C /* Products */,
 			);
 			sourceTree = "<group>";
@@ -57,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				F1E3B1C321523C7F00A6943C /* TrimmerVideo.app */,
+				F199E6F921590D60009F6077 /* TrimmerVideoTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -82,6 +114,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		F199E6F821590D60009F6077 /* TrimmerVideoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F199E70021590D60009F6077 /* Build configuration list for PBXNativeTarget "TrimmerVideoTests" */;
+			buildPhases = (
+				F199E6F521590D60009F6077 /* Sources */,
+				F199E6F621590D60009F6077 /* Frameworks */,
+				F199E6F721590D60009F6077 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F199E6FF21590D60009F6077 /* PBXTargetDependency */,
+			);
+			name = TrimmerVideoTests;
+			productName = TrimmerVideoTests;
+			productReference = F199E6F921590D60009F6077 /* TrimmerVideoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		F1E3B1C221523C7F00A6943C /* TrimmerVideo */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1E3B1D521523C7F00A6943C /* Build configuration list for PBXNativeTarget "TrimmerVideo" */;
@@ -109,6 +159,10 @@
 				LastUpgradeCheck = 1000;
 				ORGANIZATIONNAME = "Diego Caroli";
 				TargetAttributes = {
+					F199E6F821590D60009F6077 = {
+						CreatedOnToolsVersion = 10.0;
+						TestTargetID = F1E3B1C221523C7F00A6943C;
+					};
 					F1E3B1C221523C7F00A6943C = {
 						CreatedOnToolsVersion = 10.0;
 					};
@@ -128,11 +182,19 @@
 			projectRoot = "";
 			targets = (
 				F1E3B1C221523C7F00A6943C /* TrimmerVideo */,
+				F199E6F821590D60009F6077 /* TrimmerVideoTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		F199E6F721590D60009F6077 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E3B1C121523C7F00A6943C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -147,6 +209,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		F199E6F521590D60009F6077 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F199E6FC21590D60009F6077 /* TrimmerVideoTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		F1E3B1BF21523C7F00A6943C /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -161,6 +231,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		F199E6FF21590D60009F6077 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = F1E3B1C221523C7F00A6943C /* TrimmerVideo */;
+			targetProxy = F199E6FE21590D60009F6077 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		F1E3B1CA21523C7F00A6943C /* Main.storyboard */ = {
@@ -182,6 +260,46 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		F199E70121590D60009F6077 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G8TLTA9GAD;
+				INFOPLIST_FILE = TrimmerVideoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.diegocaroli.TrimmerVideoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrimmerVideo.app/TrimmerVideo";
+			};
+			name = Debug;
+		};
+		F199E70221590D60009F6077 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = G8TLTA9GAD;
+				INFOPLIST_FILE = TrimmerVideoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.diegocaroli.TrimmerVideoTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TrimmerVideo.app/TrimmerVideo";
+			};
+			name = Release;
+		};
 		F1E3B1D321523C7F00A6943C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -339,6 +457,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		F199E70021590D60009F6077 /* Build configuration list for PBXNativeTarget "TrimmerVideoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F199E70121590D60009F6077 /* Debug */,
+				F199E70221590D60009F6077 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		F1E3B1BE21523C7F00A6943C /* Build configuration list for PBXProject "TrimmerVideo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
