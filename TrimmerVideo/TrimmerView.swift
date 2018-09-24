@@ -222,9 +222,9 @@ class TrimmerView: UIView {
         .constraint(equalTo: topAnchor, constant: 0)
     private lazy var trimViewBottomAnchorConstraint = trimView.bottomAnchor
         .constraint(equalTo: bottomAnchor, constant: 0)
-    private lazy var trimViewLeadingConstraint = trimView.leadingAnchor
+    lazy var trimViewLeadingConstraint = trimView.leadingAnchor
         .constraint(equalTo: leadingAnchor, constant: 0)
-    private lazy var trimViewTrailingConstraint = trimView.trailingAnchor
+    lazy var trimViewTrailingConstraint = trimView.trailingAnchor
         .constraint(equalTo: trailingAnchor, constant: 0)
     private lazy var trimViewWidthContraint = trimView.widthAnchor
         .constraint(greaterThanOrEqualToConstant: draggableViewWidth * 2 + borderWidth)
@@ -441,7 +441,7 @@ class TrimmerView: UIView {
     }
     
     //MARK: Methods
-    private func updateLeadingConstraint(with translation: CGPoint) {
+    func updateLeadingConstraint(with translation: CGPoint) {
         
         guard let minDistance = minimumDistanceBetweenDraggableViews
             else { return }
@@ -459,7 +459,7 @@ class TrimmerView: UIView {
         trimViewLeadingConstraint.constant = newPosition
     }
     
-    private func updateTrailingConstraint(with translation: CGPoint) {
+    func updateTrailingConstraint(with translation: CGPoint) {
         
         guard let minDistance = minimumDistanceBetweenDraggableViews
             else { return }
@@ -475,8 +475,7 @@ class TrimmerView: UIView {
         trimViewTrailingConstraint.constant = newPosition
     }
     
-    //FIXME: Something
-    public func seek(to time: CMTime) {
+    func seek(to time: CMTime) {
         guard let newPosition = assetThumbnailsView.getPosition(from: time)
             else { return }
         

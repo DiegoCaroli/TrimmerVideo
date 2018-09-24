@@ -88,20 +88,6 @@ class TrimmerViewTests: XCTestCase {
                        trimmerView.alphaView)
     }
     
-//    func testLeftViewWidth() {
-//        trimmerView.draggableViewWidth = 4
-//
-//        XCTAssertEqual(trimmerView.leftDraggableView.bounds.width,
-//                       trimmerView.draggableViewWidth)
-//    }
-//
-//    func testRightViewWidth() {
-//       trimmerView.borderWidth = 4
-//
-//        XCTAssertEqual(trimmerView.rightDraggableView.backgroundColor,
-//                       trimmerView.mainColor)
-//    }
-    
     func testStarTimeWithFullVideo() {
         XCTAssertEqual(trimmerView.startTime,
                        CMTime(value: CMTimeValue(0), timescale: 600))
@@ -112,6 +98,37 @@ class TrimmerViewTests: XCTestCase {
         XCTAssertEqual(trimmerView.endTime,
                        CMTime(value: CMTimeValue(value), timescale: 600))
     }
-
+    
+    func testWithNoLeadingTranslationPointer() {
+        XCTAssertEqual(trimmerView.trimViewLeadingConstraint.constant, 0)
+    }
+    
+    func testWithLeadingTranslationPointer() {
+        trimmerView.updateLeadingConstraint(with: CGPoint(x: 20, y: 0))
+        XCTAssertEqual(trimmerView.trimViewLeadingConstraint.constant, 20)
+    }
+    
+    func testWithNoTrailingTranslationPointer() {
+        XCTAssertEqual(trimmerView.trimViewTrailingConstraint.constant, 0)
+    }
+    
+    func testWithTailingTranslationPointer() {
+        trimmerView.updateTrailingConstraint(with: CGPoint(x: -20, y: 0))
+        XCTAssertEqual(trimmerView.trimViewTrailingConstraint.constant, -20)
+    }
+    
+    func testSeekLeading() {
+        trimmerView.seek(to: CMTime(value: CMTimeValue(0), timescale: 600))
+        XCTAssertEqual(trimmerView.trimViewLeadingConstraint.constant,
+                       0)
+    }
+    
+    func testSeekTrailing() {
+        let value = Int(asset.duration.seconds * Double(asset.duration.timescale))
+        trimmerView.seek(to: CMTime(value: CMTimeValue(value), timescale: 600))
+        
+        XCTAssertEqual(trimmerView.trimViewTrailingConstraint.constant,
+                       0)
+    }
 
 }
