@@ -74,6 +74,26 @@ class TrimmerView: UIView {
         }
     }
     
+    @IBInspectable var leftImage: UIImage? = nil {
+        didSet {
+            leftImageView.image = leftImage
+            leftImageViewCenterX = leftImageView.centerXAnchor
+                .constraint(equalTo: leftDraggableView.centerXAnchor)
+            leftImageViewCenterY = leftImageView.centerYAnchor
+                .constraint(equalTo: leftDraggableView.centerYAnchor)
+        }
+    }
+    
+    @IBInspectable var rightImage: UIImage? = nil {
+        didSet {
+            rightImageView.image = rightImage
+            rightImageViewCenterX = rightImageView.centerXAnchor
+                .constraint(equalTo: rightDraggableView.centerXAnchor)
+            rightImageViewCenterY = rightImageView.centerYAnchor
+                .constraint(equalTo: rightDraggableView.centerYAnchor)
+        }
+    }
+    
     @IBInspectable var minVideoDurationAfterTrimming: CMTime = .zero
     
     @IBInspectable var isTimePointerVisible: Bool = true
@@ -128,6 +148,22 @@ class TrimmerView: UIView {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.isUserInteractionEnabled = false
         return view
+    }()
+    
+    private let leftImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.frame = .zero
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = false
+        return imageView
+    }()
+    
+    private let rightImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.frame = .zero
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.isUserInteractionEnabled = false
+        return imageView
     }()
     
     private let timePointerView: UIView = {
@@ -234,6 +270,16 @@ class TrimmerView: UIView {
     private lazy var timePointerViewLeadingAnchor = timePointerView.leadingAnchor
         .constraint(equalTo: leftDraggableView.trailingAnchor, constant: 0)
     
+    private lazy var leftImageViewCenterX = leftImageView.centerXAnchor
+        .constraint(equalTo: leftDraggableView.centerXAnchor)
+        private lazy var leftImageViewCenterY = leftImageView.centerYAnchor
+            .constraint(equalTo: leftDraggableView.centerYAnchor)
+    
+    private lazy var rightImageViewCenterX = rightImageView.centerXAnchor
+        .constraint(equalTo: rightDraggableView.centerXAnchor)
+    private lazy var rightImageViewCenterY = rightImageView.centerYAnchor
+        .constraint(equalTo: rightDraggableView.centerYAnchor)
+    
     // MARK: - View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -275,6 +321,12 @@ class TrimmerView: UIView {
             rightMaskViewBottomAnchor,
             rightMaskViewLeadingAnchor,
             rightMaskViewTrailingAnchor,
+            
+            leftImageViewCenterX,
+            leftImageViewCenterY,
+            
+            rightImageViewCenterX,
+            rightImageViewCenterY
             ])
     }
     
@@ -289,6 +341,8 @@ class TrimmerView: UIView {
         addSubview(rightDraggableView)
         addSubview(leftMaskView)
         addSubview(rightMaskView)
+        leftDraggableView.addSubview(leftImageView)
+        rightDraggableView.addSubview(rightImageView)
         
         setupTimePointer()
         setupPanGestures()
