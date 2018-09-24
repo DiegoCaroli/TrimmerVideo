@@ -51,7 +51,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
-                                            <action selector="playPauseButtonPressed" destination="BYZ-38-t0r" eventType="touchUpInside" id="eGu-ia-Fga"/>
+                                            <action selector="playPauseButtonPressed" destination="UCJ-V4-Ngx" eventType="touchUpInside" id="iXT-Eb-gi2"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -78,12 +78,17 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="playButton" destination="FIt-AV-7BT" id="phb-9R-jGc"/>
                         <outlet property="playerView" destination="GrN-Sv-2At" id="uod-gb-Fhp"/>
-                        <outlet property="trimmerView" destination="dA9-LC-KSe" id="gpp-4u-gRV"/>
+                        <outlet property="trim" destination="UCJ-V4-Ngx" id="Bxg-tC-Bvn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <customObject id="UCJ-V4-Ngx" customClass="TrimmingController" customModule="TrimmerVideo" customModuleProvider="target">
+                    <connections>
+                        <outlet property="playPauseButton" destination="FIt-AV-7BT" id="YbD-lN-DMP"/>
+                        <outlet property="trimmerView" destination="dA9-LC-KSe" id="9wN-lY-AVQ"/>
+                    </connections>
+                </customObject>
             </objects>
             <point key="canvasLocation" x="140" y="119.1904047976012"/>
         </scene>

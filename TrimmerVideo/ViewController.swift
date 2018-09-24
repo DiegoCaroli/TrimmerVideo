@@ -11,21 +11,17 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    @IBOutlet var trimmerView: TrimmerView!
     @IBOutlet var playerView: UIView!
-    @IBOutlet var playButton: UIButton!
-    private var player: AVPlayer?
-    private var isPlaying = false
-    private var playbackTimeCheckerTimer: Timer?
-
-
+   
+    @IBOutlet var trim: TrimmingController!
+    
     var asset: AVAsset!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         playerView.backgroundColor = UIColor.clear
-        trimmerView.delegate = self
-
+        
         guard let path = Bundle(for: ViewController.self)
             .path(forResource: "IMG_0065", ofType: "m4v")
             else { fatalError("impossible load video") }
@@ -35,118 +31,14 @@ class ViewController: UIViewController {
 
         //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
 
-        setupPlayerLayer(for: fileURL)
-//        player?.seek(to: CMTime(value: 0, timescale: 100000000))
+        trim.setupPlayerLayer(for: fileURL, with: playerView)
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        trimmerView.assetThumbnailsView.asset = asset
+        trim.generateThumbnails(for: asset)
     }
 
-    private func setupPlayerLayer(for url: URL) {
-        let playerLayer = AVPlayerLayer()
-        playerLayer.frame = playerView.bounds
-        player = AVPlayer(url: url)
-
-        player?.actionAtItemEnd = .none
-        playerLayer.player = player
-        playerView.layer.addSublayer(playerLayer)
-        playerView.addSubview(playButton)
-    }
-
-
-    @IBAction func playPauseButtonPressed() {
-        if !isPlaying {
-            player?.play()
-            startPlaybackTimeChecker()
-            playButton.setTitle("Pause", for: .normal)
-            isPlaying = true
-        } else {
-            player?.pause()
-            stopPlaybackTimeChecker()
-            playButton.setTitle("Play", for: .normal)
-            isPlaying = false
-        }
-    }
-
-    func pause() {
-        player?.pause()
-        stopPlaybackTimeChecker()
-        playButton.setTitle("Play", for: .normal)
-        isPlaying = false
-        trimmerView.resetTimePointer()
-    }
-
-    func startPlaybackTimeChecker() {
-        stopPlaybackTimeChecker()
-        playbackTimeCheckerTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self,
-                                                        selector:
-            #selector(ViewController.onPlaybackTimeChecker), userInfo: nil, repeats: true)
-    }
-
-    func stopPlaybackTimeChecker() {
-        playbackTimeCheckerTimer?.invalidate()
-        playbackTimeCheckerTimer = nil
-    }
-
-    @objc func onPlaybackTimeChecker() {
-
-        guard let startTime = trimmerView.startTime,
-            let endTime = trimmerView.endTime,
-            let player = player else {
-                return
-        }
-
-        let playBackTime = player.currentTime()
-        trimmerView.seek(to: playBackTime)
-
-        if playBackTime >= endTime {
-            player.seek(to: startTime,
-                        toleranceBefore: CMTime.zero,
-                        toleranceAfter: CMTime.zero)
-            trimmerView.seek(to: startTime)
-            pause()
-        }
-    }
-
-}
-
-//MARK: TrimmerViewDelegate
-extension ViewController: TrimmerViewDelegate {
-    func trimmerDidChangeDraggingPosition(
-        _ trimmer: TrimmerView,
-        with currentTimePointer: CMTime) {
-
-        player?.pause()
-        playButton.isHidden = true
-
-        assert(currentTimePointer.seconds >= 0)
-
-        assert(currentTimePointer.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
-
-        player?.seek(
-            to: currentTimePointer,
-            toleranceBefore: .zero,
-            toleranceAfter: .zero)
-    }
-
-    func trimmerDidEndDragging(
-        _ trimmer: TrimmerView,
-        with startTime: CMTime,
-        endTime: CMTime) {
-
-        playButton.isHidden = false
-
-        assert(startTime.seconds >= 0)
-
-        assert(startTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
-
-        assert(endTime.seconds >= 0)
-
-        assert(endTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
-
-        print(startTime, endTime)
-    }
 }
