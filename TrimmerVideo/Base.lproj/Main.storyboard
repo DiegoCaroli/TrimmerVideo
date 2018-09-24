@@ -28,13 +28,13 @@
                                     <userDefinedRuntimeAttribute type="number" keyPath="minDuration">
                                         <integer key="value" value="1"/>
                                     </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                    <userDefinedRuntimeAttribute type="color" keyPath="mainColor">
                                         <color key="value" red="0.94499999280000002" green="0.62699997429999998" blue="0.16205512150000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="isTimePointerVisible" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maf-po-lGE" customClass="DimmingView" customModule="TrimmerVideo" customModuleProvider="target">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Maf-po-lGE" customClass="AssetThumbnailsView" customModule="TrimmerVideo" customModuleProvider="target">
                                 <rect key="frame" x="20" y="377" width="335" height="70"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -78,9 +78,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="dimmingView" destination="dA9-LC-KSe" id="gpp-4u-gRV"/>
                         <outlet property="playButton" destination="FIt-AV-7BT" id="phb-9R-jGc"/>
                         <outlet property="playerView" destination="GrN-Sv-2At" id="uod-gb-Fhp"/>
+                        <outlet property="trimmerView" destination="dA9-LC-KSe" id="gpp-4u-gRV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

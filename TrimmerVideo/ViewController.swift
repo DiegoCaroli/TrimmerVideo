@@ -11,7 +11,7 @@ import AVFoundation
 
 class ViewController: UIViewController {
 
-    @IBOutlet var dimmingView: TrimmerView!
+    @IBOutlet var trimmerView: TrimmerView!
     @IBOutlet var playerView: UIView!
     @IBOutlet var playButton: UIButton!
     private var player: AVPlayer?
@@ -24,7 +24,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
 
         playerView.backgroundColor = UIColor.clear
-        dimmingView.delegate = self
+        trimmerView.delegate = self
 
         guard let path = Bundle(for: ViewController.self)
             .path(forResource: "IMG_0065", ofType: "m4v")
@@ -36,13 +36,13 @@ class ViewController: UIViewController {
         //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
 
         setupPlayerLayer(for: fileURL)
-        player?.seek(to: CMTime(value: 0, timescale: 100000000))
+//        player?.seek(to: CMTime(value: 0, timescale: 100000000))
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        dimmingView.assetThumbnailsView.asset = asset
+        trimmerView.assetThumbnailsView.asset = asset
     }
 
     private func setupPlayerLayer(for url: URL) {
@@ -76,7 +76,7 @@ class ViewController: UIViewController {
         stopPlaybackTimeChecker()
         playButton.setTitle("Play", for: .normal)
         isPlaying = false
-        dimmingView.resetTimePointer()
+        trimmerView.resetTimePointer()
     }
 
     func startPlaybackTimeChecker() {
@@ -93,20 +93,20 @@ class ViewController: UIViewController {
 
     @objc func onPlaybackTimeChecker() {
 
-        guard let startTime = dimmingView.startTime,
-            let endTime = dimmingView.endTime,
+        guard let startTime = trimmerView.startTime,
+            let endTime = trimmerView.endTime,
             let player = player else {
                 return
         }
 
         let playBackTime = player.currentTime()
-        dimmingView.seek(to: playBackTime)
+        trimmerView.seek(to: playBackTime)
 
         if playBackTime >= endTime {
             player.seek(to: startTime,
                         toleranceBefore: CMTime.zero,
                         toleranceAfter: CMTime.zero)
-            dimmingView.seek(to: startTime)
+            trimmerView.seek(to: startTime)
             pause()
         }
     }
@@ -124,7 +124,7 @@ extension ViewController: TrimmerViewDelegate {
 
         assert(currentTimePointer.seconds >= 0)
 
-        assert(currentTimePointer.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+        assert(currentTimePointer.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
 
         player?.seek(
             to: currentTimePointer,
@@ -141,11 +141,11 @@ extension ViewController: TrimmerViewDelegate {
 
         assert(startTime.seconds >= 0)
 
-        assert(startTime.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+        assert(startTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
 
         assert(endTime.seconds >= 0)
 
-        assert(endTime.seconds <= dimmingView.assetThumbnailsView.asset.duration.seconds)
+        assert(endTime.seconds <= trimmerView.assetThumbnailsView.asset.duration.seconds)
 
         print(startTime, endTime)
     }

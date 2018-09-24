@@ -1,5 +1,5 @@
 //
-//  DimmingView.swift
+//  AssetThumbnailsView.swift
 //  TrimmerVideo
 //
 //  Created by Diego Caroli on 19/09/2018.
@@ -9,13 +9,7 @@
 import UIKit
 import AVFoundation
 
-class DimmingView: UIView {
-
-    //    private let thumbView: UIImageView = {
-    //        let imageView = UIImageView()
-    //        imageView.frame = .zero
-    //        return imageView
-    //    }()
+class AssetThumbnailsView: UIView {
 
     let stackView: UIStackView = {
         let stackView = UIStackView()
