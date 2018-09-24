@@ -9,8 +9,9 @@
 /* Begin PBXBuildFile section */
 		F199E6EE2158E541009F6077 /* DraggableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6ED2158E541009F6077 /* DraggableView.swift */; };
 		F199E6F42158F8E1009F6077 /* TrimmingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6F32158F8E1009F6077 /* TrimmingController.swift */; };
-		F199E6FC21590D60009F6077 /* TrimmerVideoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */; };
+		F199E6FC21590D60009F6077 /* AssetThumbnailsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E6FB21590D60009F6077 /* AssetThumbnailsViewTests.swift */; };
 		F199E70421591418009F6077 /* IMG_0065.m4v in Resources */ = {isa = PBXBuildFile; fileRef = F1E3B1D821523C9800A6943C /* IMG_0065.m4v */; };
+		F199E70621592D42009F6077 /* TrimmerViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F199E70521592D42009F6077 /* TrimmerViewTests.swift */; };
 		F1C95C5E21528B3B00CC797A /* TrimmerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C95C5D21528B3B00CC797A /* TrimmerView.swift */; };
 		F1E3B1C721523C7F00A6943C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C621523C7F00A6943C /* AppDelegate.swift */; };
 		F1E3B1C921523C7F00A6943C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E3B1C821523C7F00A6943C /* ViewController.swift */; };
@@ -35,8 +36,9 @@
 		F199E6ED2158E541009F6077 /* DraggableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DraggableView.swift; sourceTree = "<group>"; };
 		F199E6F32158F8E1009F6077 /* TrimmingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmingController.swift; sourceTree = "<group>"; };
 		F199E6F921590D60009F6077 /* TrimmerVideoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TrimmerVideoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerVideoTests.swift; sourceTree = "<group>"; };
+		F199E6FB21590D60009F6077 /* AssetThumbnailsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssetThumbnailsViewTests.swift; sourceTree = "<group>"; };
 		F199E6FD21590D60009F6077 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F199E70521592D42009F6077 /* TrimmerViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerViewTests.swift; sourceTree = "<group>"; };
 		F1C95C5D21528B3B00CC797A /* TrimmerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimmerView.swift; sourceTree = "<group>"; };
 		F1E3B1C321523C7F00A6943C /* TrimmerVideo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TrimmerVideo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1E3B1C621523C7F00A6943C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -70,7 +72,8 @@
 		F199E6FA21590D60009F6077 /* TrimmerVideoTests */ = {
 			isa = PBXGroup;
 			children = (
-				F199E6FB21590D60009F6077 /* TrimmerVideoTests.swift */,
+				F199E6FB21590D60009F6077 /* AssetThumbnailsViewTests.swift */,
+				F199E70521592D42009F6077 /* TrimmerViewTests.swift */,
 				F199E70321590D97009F6077 /* Resources */,
 				F199E6FD21590D60009F6077 /* Info.plist */,
 			);
@@ -223,7 +226,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F199E6FC21590D60009F6077 /* TrimmerVideoTests.swift in Sources */,
+				F199E6FC21590D60009F6077 /* AssetThumbnailsViewTests.swift in Sources */,
+				F199E70621592D42009F6077 /* TrimmerViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

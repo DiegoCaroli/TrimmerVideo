@@ -101,7 +101,7 @@ class TrimmerView: UIView {
     weak var delegate: TrimmerViewDelegate?
     
     //MARK: Views
-    private lazy var trimView: UIView = {
+    lazy var trimView: UIView = {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = .clear
@@ -130,7 +130,7 @@ class TrimmerView: UIView {
         return view
     }()
     
-    private lazy var leftMaskView: UIView = {
+    lazy var leftMaskView: UIView = {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = .white
@@ -140,7 +140,7 @@ class TrimmerView: UIView {
         return view
     }()
     
-    private lazy var rightMaskView: UIView = {
+    lazy var rightMaskView: UIView = {
         let view = UIView()
         view.frame = .zero
         view.backgroundColor = .white

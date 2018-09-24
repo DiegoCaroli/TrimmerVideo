@@ -1,5 +1,5 @@
 //
-//  TrimmerVideoTests.swift
+//  AssetThumbnailsViewTests.swift
 //  TrimmerVideoTests
 //
 //  Created by Diego Caroli on 24/09/2018.
@@ -10,7 +10,7 @@ import XCTest
 import AVFoundation
 @testable import TrimmerVideo
 
-class TrimmerVideoTests: XCTestCase {
+class AssetThumbnailsViewTests: XCTestCase {
     
     var trimmerView: TrimmerView!
     var bundle: Bundle!
@@ -88,21 +88,5 @@ class TrimmerVideoTests: XCTestCase {
                        trimmerView.assetThumbnailsView.bounds.maxX)
         
     }
-    
-    func testStarTimeWithFullVideo() {
-        XCTAssertEqual(trimmerView.startTime,
-                       CMTime(value: CMTimeValue(0), timescale: 600))
-    }
-    
-    func testEndTimeWithFullVideo() {
-        let value = Int(asset.duration.seconds * Double(asset.duration.timescale))
-        XCTAssertEqual(trimmerView.endTime,
-                       CMTime(value: CMTimeValue(value), timescale: 600))
-    }
-
-}
-
-
-class MockPanGesture: UIPanGestureRecognizer {
     
 }
