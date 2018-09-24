@@ -184,6 +184,7 @@ class TrimmerView: UIView {
     
     //MARK: Properties
     private var minimumDistanceBetweenDraggableViews: CGFloat? {
+//        return CGFloat(1) * assetThumbnailsView.durationSize / CGFloat(assetThumbnailsView.videoDuration.seconds)
         return assetThumbnailsView
             .getPosition(from: minVideoDurationAfterTrimming)
             .map { $0 + borderWidth }

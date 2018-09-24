@@ -33,11 +33,12 @@ class AssetThumbnailsView: UIView {
     private var totalTimeLength: Int {
         return Int(videoDuration.seconds * Double(videoDuration.timescale))
     }
-    private var videoDuration: CMTime {
+    
+    var videoDuration: CMTime {
         return asset.duration
     }
 
-    private var durationSize: CGFloat {
+    var durationSize: CGFloat {
         return bounds.width
     }
 
