@@ -78,7 +78,7 @@ class TrimmingController: NSObject {
         playbackTimeCheckerTimer = nil
     }
     
-    /// Update the pointer position synchronous with the video
+    /// Update the pointer position respects the video time
     @objc func onPlaybackTimeChecker() {
         guard let startTime = trimmerView.startTime,
             let endTime = trimmerView.endTime,
