@@ -11,6 +11,10 @@ import AVFoundation
 
 class TrimmingController: NSObject {
     
+    // MARK: IBInspectable
+    /// Precision when the value is true show only the keyframe for optimization
+    @IBInspectable var isTimePrecisionInfinity: Bool = false
+    
     // MARK: IBOutlets
     @IBOutlet var playPauseButton: UIButton!
     @IBOutlet var trimmerView: TrimmerView!{
@@ -23,6 +27,9 @@ class TrimmingController: NSObject {
     private var player: AVPlayer?
     private var isPlaying = false
     private var playbackTimeCheckerTimer: Timer?
+    private var tolBefore: CMTime = CMTime.zero
+    private var tolAfter: CMTime = CMTime.zero
+
     
     // MARK: IBActions
     @IBAction func playPauseButtonPressed() {
@@ -60,7 +67,6 @@ class TrimmingController: NSObject {
         stopPlaybackTimeChecker()
         playPauseButton.setTitle("Play", for: .normal)
         isPlaying = false
-        trimmerView.resetTimePointer()
     }
     
     /// Schedule a timer
@@ -90,11 +96,13 @@ class TrimmingController: NSObject {
         trimmerView.seek(to: playBackTime)
         
         if playBackTime >= endTime {
+            /// Leave this seek with tolerance zero otherwise will be a little delay of the update of pointer position
             player.seek(to: startTime,
                         toleranceBefore: CMTime.zero,
                         toleranceAfter: CMTime.zero)
             trimmerView.seek(to: startTime)
             pause()
+            trimmerView.resetTimePointer()
         }
     }
     
@@ -106,17 +114,18 @@ extension TrimmingController: TrimmerViewDelegate {
         _ trimmer: TrimmerView,
         with currentTimePointer: CMTime) {
         
-        player?.pause()
+        pause()
         playPauseButton.isHidden = true
         
         assert(currentTimePointer.seconds >= 0)
         
         assert(currentTimePointer.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
         
+        let tolerance: CMTime = isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
         player?.seek(
             to: currentTimePointer,
-            toleranceBefore: .zero,
-            toleranceAfter: .zero)
+            toleranceBefore: tolerance,
+            toleranceAfter: tolerance)
     }
     
     func trimmerDidEndDragging(

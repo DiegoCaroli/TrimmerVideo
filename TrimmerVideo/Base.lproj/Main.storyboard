@@ -84,6 +84,9 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
                 <customObject id="UCJ-V4-Ngx" customClass="TrimmingController" customModule="TrimmerVideo" customModuleProvider="target">
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="isTimePrecisionInfinity" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <outlet property="playPauseButton" destination="FIt-AV-7BT" id="YbD-lN-DMP"/>
                         <outlet property="trimmerView" destination="dA9-LC-KSe" id="9wN-lY-AVQ"/>
