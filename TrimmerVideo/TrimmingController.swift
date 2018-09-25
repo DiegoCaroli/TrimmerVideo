@@ -133,8 +133,6 @@ extension TrimmingController: TrimmerViewDelegate {
         assert(endTime.seconds >= 0)
         
         assert(endTime.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
-        
-        print(startTime, endTime)
     }
 }
 
