@@ -31,8 +31,6 @@ class ViewController: UIViewController {
         let fileURL = URL(fileURLWithPath: path, isDirectory: false)
         asset = AVAsset(url: fileURL)
 
-        //             asset = AVAsset(url: URL(string: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4")!)
-
         trimmingController.setupPlayerLayer(for: fileURL, with: playerView)
     }
 

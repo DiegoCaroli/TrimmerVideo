@@ -24,7 +24,7 @@ class TrimmingController: NSObject {
     private var isPlaying = false
     private var playbackTimeCheckerTimer: Timer?
     
-    // MARK: IBOutlets
+    // MARK: IBActions
     @IBAction func playPauseButtonPressed() {
         if !isPlaying {
             player?.play()
