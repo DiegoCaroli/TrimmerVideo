@@ -121,7 +121,7 @@ extension TrimmingController: TrimmerViewDelegate {
         
         assert(currentTimePointer.seconds <= trimmerView.thumbnailsView.asset.duration.seconds)
         
-        let tolerance: CMTime = isTimePrecisionInfinity ? CMTime.indefinite : CMTime.zero
+        let tolerance: CMTime = isTimePrecisionInfinity ? .indefinite : .zero
         player?.seek(
             to: currentTimePointer,
             toleranceBefore: tolerance,
