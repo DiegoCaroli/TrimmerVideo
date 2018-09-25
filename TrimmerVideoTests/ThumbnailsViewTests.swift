@@ -1,5 +1,5 @@
 //
-//  AssetThumbnailsViewTests.swift
+//  ThumbnailsViewTests.swift
 //  TrimmerVideoTests
 //
 //  Created by Diego Caroli on 24/09/2018.
@@ -10,7 +10,7 @@ import XCTest
 import AVFoundation
 @testable import TrimmerVideo
 
-class AssetThumbnailsViewTests: XCTestCase {
+class ThumbnailsViewTests: XCTestCase {
     
     var trimmerView: TrimmerView!
     var bundle: Bundle!
@@ -26,13 +26,13 @@ class AssetThumbnailsViewTests: XCTestCase {
         asset = AVAsset(url: fileURL)
         
         trimmerView.frame = CGRect(x: 0, y: 0, width: 140, height: 50)
-        trimmerView.assetThumbnailsView = AssetThumbnailsView(
+        trimmerView.thumbnailsView = ThumbnailsView(
             frame: CGRect(x: 20, y: 0, width: 100, height: 50))
         trimmerView.rightDraggableView = UIView(frame: CGRect(x: 120,
                                                               y: 0,
                                                               width: 20,
                                                               height: 50))
-        trimmerView.assetThumbnailsView.asset = asset
+        trimmerView.thumbnailsView.asset = asset
         
         _ = trimmerView.awakeFromNib()
     }
@@ -47,35 +47,35 @@ class AssetThumbnailsViewTests: XCTestCase {
     }
     
     func testLoadAssetReturnNotNil() {
-        XCTAssertNotNil(trimmerView.assetThumbnailsView.asset)
+        XCTAssertNotNil(trimmerView.thumbnailsView.asset)
     }
     
     func testGenerateImageCountThumbnails() {
-        XCTAssertEqual(trimmerView.assetThumbnailsView.imageViewsCount,
+        XCTAssertEqual(trimmerView.thumbnailsView.thumbnailsCount,
                        4)
         
     }
     
     func testGetDurationSize() {
-        XCTAssertEqual(trimmerView.assetThumbnailsView.durationSize,
+        XCTAssertEqual(trimmerView.thumbnailsView.durationSize,
                        100)
     }
     
     func testGetTimeWithMinTime() {
-        XCTAssertEqual(trimmerView.assetThumbnailsView.getTime(from: 0),
+        XCTAssertEqual(trimmerView.thumbnailsView.getTime(from: 0),
                        CMTime(value: CMTimeValue(0), timescale: 600))
     }
     
     func testGetTimeWithMaXTime() {
         let value = Int(asset.duration.seconds * Double(asset.duration.timescale))
-        XCTAssertEqual(trimmerView.assetThumbnailsView
-            .getTime(from: trimmerView.assetThumbnailsView.bounds.width),
+        XCTAssertEqual(trimmerView.thumbnailsView
+            .getTime(from: trimmerView.thumbnailsView.bounds.width),
                        CMTime(value: CMTimeValue(value),
                               timescale: 600))
     }
     
     func testGetPostionWithMinTime() {
-        XCTAssertEqual(trimmerView.assetThumbnailsView
+        XCTAssertEqual(trimmerView.thumbnailsView
             .getPosition(from: CMTime(value: CMTimeValue(0), timescale: 600)),
                        0)
         
@@ -83,9 +83,9 @@ class AssetThumbnailsViewTests: XCTestCase {
     
     func testGetPostionWithMaxTime() {
         let value = Int(asset.duration.seconds * Double(asset.duration.timescale))
-        XCTAssertEqual(trimmerView.assetThumbnailsView
+        XCTAssertEqual(trimmerView.thumbnailsView
             .getPosition(from: CMTime(value: CMTimeValue(value), timescale: 600)),
-                       trimmerView.assetThumbnailsView.bounds.maxX)
+                       trimmerView.thumbnailsView.bounds.maxX)
         
     }
     

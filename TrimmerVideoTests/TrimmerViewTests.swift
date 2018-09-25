@@ -26,13 +26,13 @@ class TrimmerViewTests: XCTestCase {
         asset = AVAsset(url: fileURL)
         
         trimmerView.frame = CGRect(x: 0, y: 0, width: 140, height: 50)
-        trimmerView.assetThumbnailsView = AssetThumbnailsView(
+        trimmerView.thumbnailsView = ThumbnailsView(
             frame: CGRect(x: 20, y: 0, width: 100, height: 50))
         trimmerView.rightDraggableView = UIView(frame: CGRect(x: 120,
                                                               y: 0,
                                                               width: 20,
                                                               height: 50))
-        trimmerView.assetThumbnailsView.asset = asset
+        trimmerView.thumbnailsView.asset = asset
         
         _ = trimmerView.awakeFromNib()
     }
