@@ -24,20 +24,7 @@ class TrimmingController: NSObject {
     private var isPlaying = false
     private var playbackTimeCheckerTimer: Timer?
     
-    func setupPlayerLayer(for url: URL, with playerView: UIView) {
-        let playerLayer = AVPlayerLayer()
-        playerLayer.frame = playerView.bounds
-        player = AVPlayer(url: url)
-        
-        playerLayer.player = player
-        playerView.layer.addSublayer(playerLayer)
-        playerView.addSubview(playPauseButton)
-    }
-    
-    func generateThumbnails(for asset: AVAsset) {
-        trimmerView.thumbnailsView.asset = asset
-    }
-    
+    // MARK: IBOutlets
     @IBAction func playPauseButtonPressed() {
         if !isPlaying {
             player?.play()
@@ -52,6 +39,22 @@ class TrimmingController: NSObject {
         }
     }
     
+    // MARK: Methods
+    func setupPlayerLayer(for url: URL, with playerView: UIView) {
+        let playerLayer = AVPlayerLayer()
+        playerLayer.frame = playerView.bounds
+        player = AVPlayer(url: url)
+        
+        playerLayer.player = player
+        playerView.layer.addSublayer(playerLayer)
+        playerView.addSubview(playPauseButton)
+    }
+    
+    func generateThumbnails(for asset: AVAsset) {
+        trimmerView.thumbnailsView.asset = asset
+    }
+    
+    /// when the video is finish reset the pointer at the beginning
     private func pause() {
         player?.pause()
         stopPlaybackTimeChecker()
@@ -60,6 +63,7 @@ class TrimmingController: NSObject {
         trimmerView.resetTimePointer()
     }
     
+    /// Schedule a timer
     private func startPlaybackTimeChecker() {
         stopPlaybackTimeChecker()
         playbackTimeCheckerTimer = Timer.scheduledTimer(
@@ -68,13 +72,14 @@ class TrimmingController: NSObject {
             selector: #selector(onPlaybackTimeChecker), userInfo: nil, repeats: true)
     }
     
+    /// Invalidate a timer
     func stopPlaybackTimeChecker() {
         playbackTimeCheckerTimer?.invalidate()
         playbackTimeCheckerTimer = nil
     }
     
+    /// Update the pointer position synchronous with the video
     @objc func onPlaybackTimeChecker() {
-        
         guard let startTime = trimmerView.startTime,
             let endTime = trimmerView.endTime,
             let player = player else {

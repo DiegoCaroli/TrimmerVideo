@@ -184,18 +184,21 @@ class TrimmerView: UIView {
     
     //MARK: Properties
     
+    // Return the minimum distance between the left and right view expressed in seconds
     private var minimumDistanceBetweenDraggableViews: CGFloat? {
         return CGFloat(minVideoDurationAfterTrimming)
             * thumbnailsView.durationSize
             / CGFloat(thumbnailsView.videoDuration.seconds)
     }
     
+    /// Return the time of the start
     var startTime: CMTime? {
         let startPosition = leftDraggableView.frame.maxX - thumbnailsView.frame.origin.x
         
         return thumbnailsView.getTime(from: startPosition)
     }
     
+    /// Return the time of the end
     var endTime: CMTime? {
         let endPosition = rightDraggableView.frame.minX - thumbnailsView.frame.origin.x
         
@@ -281,7 +284,7 @@ class TrimmerView: UIView {
     private lazy var rightImageViewCenterY = rightImageView.centerYAnchor
         .constraint(equalTo: rightDraggableView.centerYAnchor)
     
-    // MARK: - View Life Cycle
+    // MARK: View Life Cycle
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -438,8 +441,8 @@ class TrimmerView: UIView {
     }
     
     //MARK: Methods
+    /// Update the leading contraint of the left draggable view after the pan gesture
     func updateLeadingConstraint(with translation: CGPoint) {
-        
         guard let minDistance = minimumDistanceBetweenDraggableViews
             else { return }
         
@@ -456,8 +459,8 @@ class TrimmerView: UIView {
         trimViewLeadingConstraint.constant = newPosition
     }
     
+    /// Update the trailing contraint of the right draggable view after the pan gesture
     func updateTrailingConstraint(with translation: CGPoint) {
-        
         guard let minDistance = minimumDistanceBetweenDraggableViews
             else { return }
         
@@ -472,6 +475,7 @@ class TrimmerView: UIView {
         trimViewTrailingConstraint.constant = newPosition
     }
     
+    /// Set up the new position of the pointer when the video play
     func seek(to time: CMTime) {
         guard let newPosition = thumbnailsView.getPosition(from: time)
             else { return }
@@ -494,6 +498,7 @@ class TrimmerView: UIView {
         layoutIfNeeded()
     }
     
+    /// Reset the pointer near the left draggable view
     func resetTimePointer() {
         timePointerViewLeadingAnchor.constant = 0
     }
