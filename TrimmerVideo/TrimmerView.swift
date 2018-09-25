@@ -441,6 +441,7 @@ class TrimmerView: UIView {
     }
     
     //MARK: Methods
+    
     /// Update the leading contraint of the left draggable view after the pan gesture
     func updateLeadingConstraint(with translation: CGPoint) {
         guard let minDistance = minimumDistanceBetweenDraggableViews

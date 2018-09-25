@@ -54,7 +54,7 @@ class TrimmingController: NSObject {
         trimmerView.thumbnailsView.asset = asset
     }
     
-    /// when the video is finish reset the pointer at the beginning
+    /// When the video is finish reset the pointer at the beginning
     private func pause() {
         player?.pause()
         stopPlaybackTimeChecker()
@@ -78,7 +78,7 @@ class TrimmingController: NSObject {
         playbackTimeCheckerTimer = nil
     }
     
-    /// Update the pointer position respects the video time
+    /// Update the pointer position respects the current video time
     @objc func onPlaybackTimeChecker() {
         guard let startTime = trimmerView.startTime,
             let endTime = trimmerView.endTime,
